@@ -1,0 +1,938 @@
+openapi: 3.0.0
+servers:
+  - url: "https://emela.org/chautari"
+info:
+  description: "A renting service"
+  version: "0.0.1"
+  title: "Chautari Rental Service"
+  contact:
+    url: 'http://emela.org'
+    email: "emelagroup@gmail.com"
+
+paths:
+  '/login':
+    post:
+      summary: "user login endpoint"
+      description: "accept user credentials"
+      operationId: "login"
+      requestBody:
+        description: "login request body"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Credential'
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthenticationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/setup':
+    post:
+      summary: "create user account"
+      operationId: "setUpUserAccount"
+      requestBody:
+        description: "setup request body"
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAccountDetail'
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SetupResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/rents':
+    post:
+      summary: "create new rental item"
+      description: "Provides user to post new rental item"
+      operationId: "createRental"
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RentalItemRequest'
+
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalItemResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+    get:
+      summary: "return list of available rental items"
+      description: "Provides available rental items summary filtering by title, location, type, availability, feature and preference"
+      operationId: "getRentals"
+      parameters:
+        - name: "title"
+          in: "query"
+          schema:
+            type: "string"
+        - name: "location"
+          in: "query"
+          schema:
+            type: "string"
+        - name: "type"
+          in: "query"
+          schema:
+            type: "string"
+        - name: "availability"
+          in: "query"
+          description: "start date and end date"
+          schema:
+            type: "string"
+            example: "02-03-2020,02-07-2020"
+        - name: "feature"
+          in: "query"
+          schema:
+            type: "string"
+        - name: "preference"
+          in: "query"
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RentalItemSummary'
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/rents/{rental-id}':
+    get:
+      summary: "return rental detail information"
+      description: "Provides rental item detail information"
+      operationId: "getRentalItems"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "rental-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalItemDetail'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+    put:
+      summary: "update rental item"
+      description: "Provides user to update rental item"
+      operationId: "uptateRental"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "rental-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RentalItemRequest'
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalItemResponse'
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+    delete:
+      summary: "delete rental item"
+      description: "Provides user to delete posted rental item"
+      operationId: "deleteRental"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "rental-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RentalItemResponse'
+        '400':
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/rents/resource':
+    post:
+      summary: "upload resources"
+      description: "Provide endpoint to upload resources"
+      operationId: "resourceUpload"
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResourceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+  '/rents/resource/{resource-id}':
+    get:
+      summary: "return resource"
+      description: "Provide endpoint to upload resources"
+      operationId: "getResource"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "resource-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+    delete:
+      summary: "return resource"
+      description: "Provide endpoint to upload resources"
+      operationId: "deleteResource"
+      security:
+        - basicAuth: []
+      parameters:
+        - name: "resource-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Other Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    ErrorModel:
+      type: object
+      properties:
+        developerMessage:
+          type: string
+          description: >-
+            Verbose, plain language description of the problem for the app
+            developer with hints about how to fix it.
+        userMessage:
+          type: string
+          description: Pass this message on to the app user if needed
+        errorCode:
+          type: string
+          description: Error code defined for the error
+        moreInfo:
+          type: string
+          description: Any additional information on the error (e.g. website links)
+    Credential:
+      type: object
+      required:
+        - userName
+        - password
+      properties:
+        userName:
+          type: string
+        password:
+          type: string
+        security-questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/SecurityQuestionList'
+    SecurityQuestionList:
+      type: object
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+    AuthenticationResponse:
+      type: object
+      properties:
+        message:
+          type: string
+    UserAccountDetail:
+      type: object
+      properties:
+        user-type:
+          type: string
+          enum: [renter, owner, both]
+        user:
+          $ref: '#/components/schemas/UserDetail'
+        credential:
+          $ref: '#/components/schemas/Credential'
+        createdOn:
+          type: string
+    UserDetail:
+      type: object
+      required:
+        - person
+      properties:
+        person:
+          $ref: '#/components/schemas/PersonName'
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      properties:
+        address1:
+          type: string
+        address2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        country:
+          type: string
+        zip:
+          type: integer
+    RentalItemResponse:
+      type: object
+      required:
+        - rental-id
+      properties:
+        rental-id:
+          type: string
+
+    PersonName:
+      type: object
+      properties:
+        title:
+          type: string
+          enum: [Ms, Mr, Miss]
+        firstName:
+          type: string
+        middleName:
+          type: string
+        lastName:
+          type: string
+        status:
+          type: string
+          enum: [single, married]
+    SetupResponse:
+      type: object
+      properties:
+        user-id:
+          type: string
+          format: UUID
+        message:
+          type: string
+    RentalItemRequest:
+      type: object
+      required:
+        - saf
+      properties:
+        owner-id:
+          type: string
+        title:
+          type: string
+        rentOf:
+          type: string
+          enum: [room]
+        availability:
+          $ref: '#/components/schemas/Availability'
+        location:
+          $ref: '#/components/schemas/Address'
+        price:
+          $ref: '#/components/schemas/RentalItemPrice'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        preferences:
+          type: array
+          items:
+            $ref:  '#/components/schemas/RentalItemPreference'
+        features:
+          type: object
+          properties:
+            available:
+              type: array
+              items:
+                type: string
+            not-available:
+              type: array
+              items:
+                type: string
+        postedOn:
+          type: string
+        image-ids:
+          type: array
+          items:
+            type: string
+            example: 123423241
+    RentalItemPreference:
+      type: object
+      required:
+        - preference
+      properties:
+        preference:
+          type: string
+        priority:
+          type: string
+          enum: [high, medium, low]
+    RentalItemPrice:
+      type: object
+      properties:
+        value:
+          type: number
+        type:
+          type: string
+          enum: [negotiable, non-negotiable]
+    Contact:
+      type: object
+      required:
+        - phoneNumber
+      properties:
+        phoneNumber:
+          type: string
+        email:
+          type: string
+    Availability:
+      type: object
+      properties:
+        available:
+          $ref: '#/components/schemas/Duration'
+        not-available:
+          type: array
+          items:
+            $ref: '#/components/schemas/Duration'
+    Duration:
+      type: object
+      properties:
+        start-date:
+          type: string
+        end-date:
+          type: string
+    RentalItemSummary:
+      type: object
+      required:
+        - title
+        - price
+        - rentOf
+        - location
+        - image
+      properties:
+        title:
+          type: string
+        price:
+          $ref: '#/components/schemas/RentalItemPrice'
+        rentOf:
+          type: string
+        location:
+          $ref: '#/components/schemas/Address'
+        image-id:
+          type: string
+    RentalItemDetail:
+      type: object
+      required:
+        - title
+        - rentOf
+        - availability
+        - location
+        - price
+        - postedOn
+      properties:
+        title:
+          type: string
+        rentOf:
+          type: string
+          enum: [room]
+        availability:
+          $ref: '#/components/schemas/Availability'
+        location:
+          $ref: '#/components/schemas/Address'
+        price:
+          $ref: '#/components/schemas/RentalItemPrice'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        preferences:
+          type: array
+          items:
+            $ref:  '#/components/schemas/RentalItemPreference'
+        features:
+          type: object
+          properties:
+            available:
+              type: array
+              items:
+                type: string
+            not-available:
+              type: array
+              items:
+                type: string
+        postedBy:
+          $ref: '#/components/schemas/UserDetail'
+        postedOn:
+          type: string
+        image-ids:
+          type: array
+          items:
+            type: string
+            example: 123423241
+    ResourceResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        resource-id:
+          type: string
+        message:
+          type: string
+externalDocs:
+  description: "Find out more about Chautari Rental Service"
+  url: "http://emela.org/chautari"
