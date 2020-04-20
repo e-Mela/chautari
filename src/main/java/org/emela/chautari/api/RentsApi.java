@@ -5,13 +5,7 @@
  */
 package org.emela.chautari.api;
 
-import org.emela.chautari.model.ErrorModel;
-import org.emela.chautari.model.RentalItemDetail;
-import org.emela.chautari.model.RentalItemRequest;
-import org.emela.chautari.model.RentalItemResponse;
-import org.emela.chautari.model.RentalItemSummary;
 import org.springframework.core.io.Resource;
-import org.emela.chautari.model.ResourceResponse;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,11 +22,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 @Validated
 @Api(value = "rents", description = "the rents API")
@@ -43,7 +35,7 @@ public interface RentsApi {
     }
 
     @ApiOperation(value = "create new rental item", nickname = "createRental", notes = "Provides user to post new rental item", response = RentalItemResponse.class, authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = RentalItemResponse.class),
@@ -53,7 +45,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents",
         produces = { "application/json" }, 
         consumes = { "application/json" },
@@ -73,7 +65,7 @@ public interface RentsApi {
 
 
     @ApiOperation(value = "delete rental item", nickname = "deleteRental", notes = "Provides user to delete posted rental item", response = RentalItemResponse.class, authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = RentalItemResponse.class),
@@ -83,7 +75,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/{rental-id}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
@@ -102,7 +94,7 @@ public interface RentsApi {
 
 
     @ApiOperation(value = "return resource", nickname = "deleteResource", notes = "Provide endpoint to upload resources", response = ResourceResponse.class, authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = ResourceResponse.class),
@@ -112,7 +104,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/resource/{resource-id}",
         produces = { "application/json" }, 
         method = RequestMethod.DELETE)
@@ -131,7 +123,7 @@ public interface RentsApi {
 
 
     @ApiOperation(value = "return rental detail information", nickname = "getRentalItems", notes = "Provides rental item detail information", response = RentalItemDetail.class, authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = RentalItemDetail.class),
@@ -141,7 +133,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/{rental-id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
@@ -149,7 +141,7 @@ public interface RentsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"postedBy\" : {    \"address\" : {      \"zip\" : 0,      \"country\" : \"country\",      \"address2\" : \"address2\",      \"city\" : \"city\",      \"address1\" : \"address1\",      \"state\" : \"state\"    },    \"person\" : {      \"firstName\" : \"firstName\",      \"lastName\" : \"lastName\",      \"middleName\" : \"middleName\",      \"title\" : \"Ms\",      \"status\" : \"single\"    }  },  \"image-ids\" : [ \"123423241\", \"123423241\" ],  \"features\" : {    \"not-available\" : [ \"not-available\", \"not-available\" ],    \"available\" : [ \"available\", \"available\" ]  },  \"preferences\" : [ {    \"preference\" : \"preference\",    \"priority\" : \"high\"  }, {    \"preference\" : \"preference\",    \"priority\" : \"high\"  } ],  \"price\" : {    \"type\" : \"negotiable\",    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"contact\" : {    \"phoneNumber\" : \"phoneNumber\",    \"email\" : \"email\"  },  \"postedOn\" : \"postedOn\",  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"room\",  \"availability\" : {    \"not-available\" : [ {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    }, {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    } ],    \"available\" : {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    }  },  \"title\" : \"title\"}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"preferences\" : [ {    \"preference\" : \"preference\",    \"priority\" : \"high\"  }, {    \"preference\" : \"preference\",    \"priority\" : \"high\"  } ],  \"availability\" : {    \"not-available\" : [ {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    }, {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    } ],    \"available\" : {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    }  },  \"title\" : \"title\",  \"postedBy\" : {    \"address\" : {      \"zip\" : 0,      \"country\" : \"country\",      \"address2\" : \"address2\",      \"city\" : \"city\",      \"address1\" : \"address1\",      \"state\" : \"state\"    },    \"person\" : {      \"firstName\" : \"firstName\",      \"lastName\" : \"lastName\",      \"middleName\" : \"middleName\",      \"title\" : \"Mr\"    }  },  \"image-ids\" : [ \"123423241\", \"123423241\" ],  \"features\" : {    \"not-available\" : [ \"not-available\", \"not-available\" ],    \"available\" : [ \"available\", \"available\" ]  },  \"viewedBy\" : 0,  \"price\" : {    \"type\" : true,    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"contact\" : {    \"phoneNumber\" : \"phoneNumber\",    \"email\" : \"email\"  },  \"postedOn\" : \"postedOn\",  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"room\",  \"status\" : \"New\"}");
                     break;
                 }
             }
@@ -168,7 +160,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
@@ -176,7 +168,7 @@ public interface RentsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json", "{  \"price\" : {    \"type\" : \"negotiable\",    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"rentOf\",  \"title\" : \"title\",  \"image-id\" : \"image-id\"}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"price\" : {    \"type\" : true,    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"rentOf\",  \"title\" : \"title\",  \"image-id\" : \"image-id\"}");
                     break;
                 }
             }
@@ -187,7 +179,7 @@ public interface RentsApi {
 
 
     @ApiOperation(value = "return resource", nickname = "getResource", notes = "Provide endpoint to upload resources", response = Resource.class, authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = Resource.class),
@@ -197,7 +189,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/resource/{resource-id}",
         produces = { "image/_*", "application/json" }, 
         method = RequestMethod.GET)
@@ -208,7 +200,7 @@ public interface RentsApi {
 
 
     @ApiOperation(value = "upload resources", nickname = "resourceUpload", notes = "Provide endpoint to upload resources", response = ResourceResponse.class, responseContainer = "List", authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = ResourceResponse.class, responseContainer = "List"),
@@ -218,12 +210,12 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/resource",
         produces = { "application/json" }, 
         consumes = { "multipart/form-data" },
         method = RequestMethod.POST)
-    default ResponseEntity<List<ResourceResponse>> resourceUpload(@ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile file) {
+    default ResponseEntity<List<ResourceResponse>> resourceUpload(@ApiParam(value = "" ) @RequestHeader(value="user-id", required=false) String userId,@ApiParam(value = "" ) @RequestHeader(value="rental-id", required=false) String rentalId,@ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile file) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -238,7 +230,7 @@ public interface RentsApi {
 
 
     @ApiOperation(value = "update rental item", nickname = "uptateRental", notes = "Provides user to update rental item", response = RentalItemResponse.class, authorizations = {
-        @Authorization(value = "basicAuth")
+        @Authorization(value = "bearerAuth")
     }, tags={  })
     @ApiResponses(value = { 
         @ApiResponse(code = 200, message = "successful operation", response = RentalItemResponse.class),
@@ -248,7 +240,7 @@ public interface RentsApi {
         @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
         @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Other Errors", response = ErrorModel.class) })
+        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/{rental-id}",
         produces = { "application/json" }, 
         consumes = { "application/json" },

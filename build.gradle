@@ -15,6 +15,32 @@ configurations {
 	}
 }
 
+task setVersion {
+	if (appVersion != "unspecified") {
+		version = appVersion
+	} else {
+		version = '1.0.0-LOCAL'
+	}
+}
+
+
+springBoot {
+	buildInfo()
+}
+
+jar {
+	archiveBaseName = rootProject.name
+	archiveVersion = appVersion
+	manifest {
+		attributes(
+				"Implementation-Title": archiveBaseName,
+				"Implementation-Version": archiveVersion
+		)
+	}
+}
+
+
+
 repositories {
 	mavenCentral()
 }

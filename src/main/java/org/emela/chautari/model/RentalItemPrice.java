@@ -3,7 +3,6 @@ package org.emela.chautari.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
@@ -13,45 +12,14 @@ import javax.validation.constraints.*;
 /**
  * RentalItemPrice
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 public class RentalItemPrice   {
   @JsonProperty("value")
   private BigDecimal value = null;
 
-  /**
-   * Gets or Sets type
-   */
-  public enum TypeEnum {
-    NEGOTIABLE("negotiable"),
-    
-    NON_NEGOTIABLE("non-negotiable");
-
-    private String value;
-
-    TypeEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static TypeEnum fromValue(String text) {
-      for (TypeEnum b : TypeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
   @JsonProperty("type")
-  private TypeEnum type = null;
+  private Boolean type = null;
 
   public RentalItemPrice value(BigDecimal value) {
     this.value = value;
@@ -74,7 +42,7 @@ public class RentalItemPrice   {
     this.value = value;
   }
 
-  public RentalItemPrice type(TypeEnum type) {
+  public RentalItemPrice type(Boolean type) {
     this.type = type;
     return this;
   }
@@ -86,11 +54,11 @@ public class RentalItemPrice   {
   @ApiModelProperty(value = "")
 
 
-  public TypeEnum getType() {
+  public Boolean getType() {
     return type;
   }
 
-  public void setType(TypeEnum type) {
+  public void setType(Boolean type) {
     this.type = type;
   }
 

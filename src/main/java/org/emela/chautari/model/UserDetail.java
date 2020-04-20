@@ -6,23 +6,23 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.emela.chautari.model.Address;
-import org.emela.chautari.model.PersonName;
+import org.emela.chautari.model.Person;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * UserDetail
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 public class UserDetail   {
   @JsonProperty("person")
-  private PersonName person = null;
+  private Person person = null;
 
   @JsonProperty("address")
   private Address address = null;
 
-  public UserDetail person(PersonName person) {
+  public UserDetail person(Person person) {
     this.person = person;
     return this;
   }
@@ -36,11 +36,11 @@ public class UserDetail   {
 
   @Valid
 
-  public PersonName getPerson() {
+  public Person getPerson() {
     return person;
   }
 
-  public void setPerson(PersonName person) {
+  public void setPerson(Person person) {
     this.person = person;
   }
 

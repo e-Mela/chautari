@@ -21,7 +21,7 @@ import javax.validation.constraints.*;
 /**
  * RentalItemDetail
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 public class RentalItemDetail   {
   @JsonProperty("title")
@@ -58,6 +58,45 @@ public class RentalItemDetail   {
 
   @JsonProperty("rentOf")
   private RentOfEnum rentOf = null;
+
+  @JsonProperty("viewedBy")
+  private Integer viewedBy = null;
+
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    NEW("New"),
+    
+    PENDING("Pending"),
+    
+    BOOKED("Booked");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+  }
+
+  @JsonProperty("status")
+  private StatusEnum status = null;
 
   @JsonProperty("availability")
   private Availability availability = null;
@@ -128,6 +167,46 @@ public class RentalItemDetail   {
 
   public void setRentOf(RentOfEnum rentOf) {
     this.rentOf = rentOf;
+  }
+
+  public RentalItemDetail viewedBy(Integer viewedBy) {
+    this.viewedBy = viewedBy;
+    return this;
+  }
+
+  /**
+   * Get viewedBy
+   * @return viewedBy
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public Integer getViewedBy() {
+    return viewedBy;
+  }
+
+  public void setViewedBy(Integer viewedBy) {
+    this.viewedBy = viewedBy;
+  }
+
+  public RentalItemDetail status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * Get status
+   * @return status
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
   }
 
   public RentalItemDetail availability(Availability availability) {
@@ -349,6 +428,8 @@ public class RentalItemDetail   {
     RentalItemDetail rentalItemDetail = (RentalItemDetail) o;
     return Objects.equals(this.title, rentalItemDetail.title) &&
         Objects.equals(this.rentOf, rentalItemDetail.rentOf) &&
+        Objects.equals(this.viewedBy, rentalItemDetail.viewedBy) &&
+        Objects.equals(this.status, rentalItemDetail.status) &&
         Objects.equals(this.availability, rentalItemDetail.availability) &&
         Objects.equals(this.location, rentalItemDetail.location) &&
         Objects.equals(this.price, rentalItemDetail.price) &&
@@ -362,7 +443,7 @@ public class RentalItemDetail   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, rentOf, availability, location, price, contact, preferences, features, postedBy, postedOn, imageIds);
+    return Objects.hash(title, rentOf, viewedBy, status, availability, location, price, contact, preferences, features, postedBy, postedOn, imageIds);
   }
 
   @Override
@@ -372,6 +453,8 @@ public class RentalItemDetail   {
     
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    rentOf: ").append(toIndentedString(rentOf)).append("\n");
+    sb.append("    viewedBy: ").append(toIndentedString(viewedBy)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    availability: ").append(toIndentedString(availability)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");

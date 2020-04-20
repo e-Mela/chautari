@@ -10,11 +10,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * PersonName
+ * Person
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
-public class PersonName   {
+public class Person   {
   /**
    * Gets or Sets title
    */
@@ -49,7 +49,7 @@ public class PersonName   {
   }
 
   @JsonProperty("title")
-  private TitleEnum title = null;
+  private TitleEnum title = TitleEnum.MR;
 
   @JsonProperty("firstName")
   private String firstName = null;
@@ -60,41 +60,7 @@ public class PersonName   {
   @JsonProperty("lastName")
   private String lastName = null;
 
-  /**
-   * Gets or Sets status
-   */
-  public enum StatusEnum {
-    SINGLE("single"),
-    
-    MARRIED("married");
-
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
-  @JsonProperty("status")
-  private StatusEnum status = null;
-
-  public PersonName title(TitleEnum title) {
+  public Person title(TitleEnum title) {
     this.title = title;
     return this;
   }
@@ -114,7 +80,7 @@ public class PersonName   {
     this.title = title;
   }
 
-  public PersonName firstName(String firstName) {
+  public Person firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
@@ -134,7 +100,7 @@ public class PersonName   {
     this.firstName = firstName;
   }
 
-  public PersonName middleName(String middleName) {
+  public Person middleName(String middleName) {
     this.middleName = middleName;
     return this;
   }
@@ -154,7 +120,7 @@ public class PersonName   {
     this.middleName = middleName;
   }
 
-  public PersonName lastName(String lastName) {
+  public Person lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
@@ -174,26 +140,6 @@ public class PersonName   {
     this.lastName = lastName;
   }
 
-  public PersonName status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-  /**
-   * Get status
-   * @return status
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
 
   @Override
   public boolean equals(Object o) {
@@ -203,29 +149,27 @@ public class PersonName   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    PersonName personName = (PersonName) o;
-    return Objects.equals(this.title, personName.title) &&
-        Objects.equals(this.firstName, personName.firstName) &&
-        Objects.equals(this.middleName, personName.middleName) &&
-        Objects.equals(this.lastName, personName.lastName) &&
-        Objects.equals(this.status, personName.status);
+    Person person = (Person) o;
+    return Objects.equals(this.title, person.title) &&
+        Objects.equals(this.firstName, person.firstName) &&
+        Objects.equals(this.middleName, person.middleName) &&
+        Objects.equals(this.lastName, person.lastName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, firstName, middleName, lastName, status);
+    return Objects.hash(title, firstName, middleName, lastName);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class PersonName {\n");
+    sb.append("class Person {\n");
     
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

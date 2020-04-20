@@ -1,0 +1,42 @@
+sourceSets {
+    contractTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/contractTest/java')
+        }
+        resources.srcDir file('src/contractTest/resources')
+    }
+}
+
+configurations {
+    contractTestCompile.extendsFrom testCompile
+    contractTestRuntime.extendsFrom testRuntime
+    contractTests
+}
+
+dependencies {
+    contractTestCompile('au.com.dius:pact-jvm-provider-junit_2.11:3.2.3')
+}
+
+//task extractContractTests(type: Copy, dependsOn: configurations.contractTests) {
+//    from {
+//        configurations.contractTests.collect { zipTree(it) }
+//    }
+//    into "${sourceSets.contractTest.output.resourcesDir}/contract-tests"
+//}
+
+task contractTest(type: Test) {
+//    testClassesDir = sourceSets.contractTest.output.classesDir
+    classpath = sourceSets.contractTest.runtimeClasspath
+
+    reports.html.destination = file("${reporting.baseDir}/${name}")
+}
+
+idea {
+    module {
+        scopes.TEST.plus += [ configurations.contractTestCompile ]
+    }
+}
+
+eclipse.classpath.plusConfigurations << configurations.contractTestCompile

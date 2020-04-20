@@ -7,14 +7,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.emela.chautari.model.SecurityQuestionList;
+import org.emela.chautari.model.SecurityQuestions;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
  * Credential
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 public class Credential   {
   @JsonProperty("userName")
@@ -25,7 +25,7 @@ public class Credential   {
 
   @JsonProperty("security-questions")
   @Valid
-  private List<SecurityQuestionList> securityQuestions = null;
+  private List<SecurityQuestions> securityQuestions = null;
 
   public Credential userName(String userName) {
     this.userName = userName;
@@ -69,12 +69,12 @@ public class Credential   {
     this.password = password;
   }
 
-  public Credential securityQuestions(List<SecurityQuestionList> securityQuestions) {
+  public Credential securityQuestions(List<SecurityQuestions> securityQuestions) {
     this.securityQuestions = securityQuestions;
     return this;
   }
 
-  public Credential addSecurityQuestionsItem(SecurityQuestionList securityQuestionsItem) {
+  public Credential addSecurityQuestionsItem(SecurityQuestions securityQuestionsItem) {
     if (this.securityQuestions == null) {
       this.securityQuestions = new ArrayList<>();
     }
@@ -90,11 +90,11 @@ public class Credential   {
 
   @Valid
 
-  public List<SecurityQuestionList> getSecurityQuestions() {
+  public List<SecurityQuestions> getSecurityQuestions() {
     return securityQuestions;
   }
 
-  public void setSecurityQuestions(List<SecurityQuestionList> securityQuestions) {
+  public void setSecurityQuestions(List<SecurityQuestions> securityQuestions) {
     this.securityQuestions = securityQuestions;
   }
 

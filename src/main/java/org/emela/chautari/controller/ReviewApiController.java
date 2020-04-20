@@ -1,6 +1,6 @@
 package org.emela.chautari.controller;
 
-import org.emela.chautari.api.RentsApi;
+import org.emela.chautari.api.ReviewApi;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -9,12 +9,12 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("${openapi.chautariRentalService.base-path:/chautari}")
-public class RentsApiController implements RentsApi {
+public class ReviewApiController implements ReviewApi {
 
     private final NativeWebRequest request;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public RentsApiController(NativeWebRequest request) {
+    public ReviewApiController(NativeWebRequest request) {
         this.request = request;
     }
 

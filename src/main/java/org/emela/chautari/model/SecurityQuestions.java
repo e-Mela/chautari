@@ -9,18 +9,18 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * SecurityQuestionList
+ * SecurityQuestions
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
-public class SecurityQuestionList   {
+public class SecurityQuestions   {
   @JsonProperty("question")
   private String question = null;
 
   @JsonProperty("answer")
   private String answer = null;
 
-  public SecurityQuestionList question(String question) {
+  public SecurityQuestions question(String question) {
     this.question = question;
     return this;
   }
@@ -40,7 +40,7 @@ public class SecurityQuestionList   {
     this.question = question;
   }
 
-  public SecurityQuestionList answer(String answer) {
+  public SecurityQuestions answer(String answer) {
     this.answer = answer;
     return this;
   }
@@ -69,9 +69,9 @@ public class SecurityQuestionList   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SecurityQuestionList securityQuestionList = (SecurityQuestionList) o;
-    return Objects.equals(this.question, securityQuestionList.question) &&
-        Objects.equals(this.answer, securityQuestionList.answer);
+    SecurityQuestions securityQuestions = (SecurityQuestions) o;
+    return Objects.equals(this.question, securityQuestions.question) &&
+        Objects.equals(this.answer, securityQuestions.answer);
   }
 
   @Override
@@ -82,7 +82,7 @@ public class SecurityQuestionList   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SecurityQuestionList {\n");
+    sb.append("class SecurityQuestions {\n");
     
     sb.append("    question: ").append(toIndentedString(question)).append("\n");
     sb.append("    answer: ").append(toIndentedString(answer)).append("\n");

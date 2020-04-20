@@ -65,7 +65,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -86,9 +86,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SetupResponse'
+                $ref: '#/components/schemas/SetupResponse'
         '400':
           description: Bad Request
           content:
@@ -126,7 +124,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -137,7 +135,7 @@ paths:
       description: "Provides user to post new rental item"
       operationId: "createRental"
       security:
-        - basicAuth: []
+        - bearerAuth: []
       requestBody:
         content:
           application/json:
@@ -188,7 +186,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -270,7 +268,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -281,7 +279,7 @@ paths:
       description: "Provides rental item detail information"
       operationId: "getRentalItems"
       security:
-        - basicAuth: []
+        - bearerAuth: []
       parameters:
         - name: "rental-id"
           in: "path"
@@ -332,7 +330,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -342,7 +340,7 @@ paths:
       description: "Provides user to update rental item"
       operationId: "uptateRental"
       security:
-        - basicAuth: []
+        - bearerAuth: []
       parameters:
         - name: "rental-id"
           in: "path"
@@ -398,7 +396,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -408,7 +406,7 @@ paths:
       description: "Provides user to delete posted rental item"
       operationId: "deleteRental"
       security:
-        - basicAuth: []
+        - bearerAuth: []
       parameters:
         - name: "rental-id"
           in: "path"
@@ -459,7 +457,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -470,7 +468,16 @@ paths:
       description: "Provide endpoint to upload resources"
       operationId: "resourceUpload"
       security:
-        - basicAuth: []
+        - bearerAuth: []
+      parameters:
+        - name: "user-id"
+          in: "header"
+          schema:
+            type: "string"
+        - name: "rental-id"
+          in: "header"
+          schema:
+            type: "string"
       requestBody:
         content:
           multipart/form-data:
@@ -528,7 +535,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -539,7 +546,7 @@ paths:
       description: "Provide endpoint to upload resources"
       operationId: "getResource"
       security:
-        - basicAuth: []
+        - bearerAuth: []
       parameters:
         - name: "resource-id"
           in: "path"
@@ -591,7 +598,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
@@ -601,7 +608,7 @@ paths:
       description: "Provide endpoint to upload resources"
       operationId: "deleteResource"
       security:
-        - basicAuth: []
+        - bearerAuth: []
       parameters:
         - name: "resource-id"
           in: "path"
@@ -652,16 +659,151 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
         default:
-          description: Other Errors
+          description: Server Errors
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
+  '/review/{rental-id}':
+    post:
+      summary: "create new review for rental item"
+      description: "Provides user to like and comment rental item"
+      operationId: "addReview"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "rental-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+        - name: "user-id"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Server Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+    get:
+      summary: "return reviews of rental item"
+      description: "Provides like and comment of rental item"
+      operationId: "getReviews"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: "rental-id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reviews'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '401':
+          description: 'Unauthorized, Invalid or Missing Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '403':
+          description: 'Access Denied, Insufficient Scope privilege Or Expired Access Token'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+        default:
+          description: Server Errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+
 components:
   securitySchemes:
-    basicAuth:
+    bearerAuth:
       type: http
-      scheme: basic
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     ErrorModel:
       type: object
@@ -693,8 +835,8 @@ components:
         security-questions:
           type: array
           items:
-            $ref: '#/components/schemas/SecurityQuestionList'
-    SecurityQuestionList:
+            $ref: '#/components/schemas/SecurityQuestions'
+    SecurityQuestions:
       type: object
       properties:
         question:
@@ -706,12 +848,11 @@ components:
       properties:
         message:
           type: string
+        statusCode:
+          type: string
     UserAccountDetail:
       type: object
       properties:
-        user-type:
-          type: string
-          enum: [renter, owner, both]
         user:
           $ref: '#/components/schemas/UserDetail'
         credential:
@@ -724,7 +865,7 @@ components:
         - person
       properties:
         person:
-          $ref: '#/components/schemas/PersonName'
+          $ref: '#/components/schemas/Person'
         address:
           $ref: '#/components/schemas/Address'
     Address:
@@ -750,21 +891,19 @@ components:
         rental-id:
           type: string
 
-    PersonName:
+    Person:
       type: object
       properties:
         title:
           type: string
           enum: [Ms, Mr, Miss]
+          default: Mr
         firstName:
           type: string
         middleName:
           type: string
         lastName:
           type: string
-        status:
-          type: string
-          enum: [single, married]
     SetupResponse:
       type: object
       properties:
@@ -778,7 +917,7 @@ components:
       required:
         - saf
       properties:
-        owner-id:
+        user-id:
           type: string
         title:
           type: string
@@ -831,8 +970,7 @@ components:
         value:
           type: number
         type:
-          type: string
-          enum: [negotiable, non-negotiable]
+          type: boolean
     Contact:
       type: object
       required:
@@ -892,6 +1030,11 @@ components:
         rentOf:
           type: string
           enum: [room]
+        viewedBy:
+          type: integer
+        status:
+          type: string
+          enum: [New, Pending, Booked ]
         availability:
           $ref: '#/components/schemas/Availability'
         location:
@@ -933,6 +1076,27 @@ components:
           type: string
         message:
           type: string
+    Reviews:
+      type: object
+      required:
+        - avarage-like
+      properties:
+        avarage-like:
+          type: number
+        reviews:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    Review:
+      type: object
+      properties:
+        like:
+          type: integer
+          enum: [1,2,3,4,5]
+        comment:
+          type: string
+        reviewer:
+          type: string
 externalDocs:
-  description: "Find out more about Chautari Rental Service"
+  description: "Find out more about Chautari"
   url: "http://emela.org/chautari"

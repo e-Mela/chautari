@@ -20,11 +20,11 @@ import javax.validation.constraints.*;
 /**
  * RentalItemRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-18T09:53:05.107-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 public class RentalItemRequest   {
-  @JsonProperty("owner-id")
-  private String ownerId = null;
+  @JsonProperty("user-id")
+  private String userId = null;
 
   @JsonProperty("title")
   private String title = null;
@@ -87,24 +87,24 @@ public class RentalItemRequest   {
   @Valid
   private List<String> imageIds = null;
 
-  public RentalItemRequest ownerId(String ownerId) {
-    this.ownerId = ownerId;
+  public RentalItemRequest userId(String userId) {
+    this.userId = userId;
     return this;
   }
 
   /**
-   * Get ownerId
-   * @return ownerId
+   * Get userId
+   * @return userId
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getOwnerId() {
-    return ownerId;
+  public String getUserId() {
+    return userId;
   }
 
-  public void setOwnerId(String ownerId) {
-    this.ownerId = ownerId;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public RentalItemRequest title(String title) {
@@ -339,7 +339,7 @@ public class RentalItemRequest   {
       return false;
     }
     RentalItemRequest rentalItemRequest = (RentalItemRequest) o;
-    return Objects.equals(this.ownerId, rentalItemRequest.ownerId) &&
+    return Objects.equals(this.userId, rentalItemRequest.userId) &&
         Objects.equals(this.title, rentalItemRequest.title) &&
         Objects.equals(this.rentOf, rentalItemRequest.rentOf) &&
         Objects.equals(this.availability, rentalItemRequest.availability) &&
@@ -354,7 +354,7 @@ public class RentalItemRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(ownerId, title, rentOf, availability, location, price, contact, preferences, features, postedOn, imageIds);
+    return Objects.hash(userId, title, rentOf, availability, location, price, contact, preferences, features, postedOn, imageIds);
   }
 
   @Override
@@ -362,7 +362,7 @@ public class RentalItemRequest   {
     StringBuilder sb = new StringBuilder();
     sb.append("class RentalItemRequest {\n");
     
-    sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
+    sb.append("    userId: ").append(toIndentedString(userId)).append("\n");
     sb.append("    title: ").append(toIndentedString(title)).append("\n");
     sb.append("    rentOf: ").append(toIndentedString(rentOf)).append("\n");
     sb.append("    availability: ").append(toIndentedString(availability)).append("\n");
