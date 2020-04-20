@@ -5,6 +5,7 @@
  */
 package org.emela.chautari.api;
 
+import org.emela.chautari.model.*;
 import org.springframework.core.io.Resource;
 import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;

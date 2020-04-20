@@ -6,6 +6,7 @@
 package org.emela.chautari.api;
 
 import io.swagger.annotations.*;
+import org.emela.chautari.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -5,6 +5,7 @@
  */
 package org.emela.chautari.api;
 
+import org.emela.chautari.model.*;
 import org.emela.chautari.model.Review;
 import org.emela.chautari.model.Reviews;
 import io.swagger.annotations.*;
