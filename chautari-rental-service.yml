@@ -857,6 +857,8 @@ components:
           $ref: '#/components/schemas/UserDetail'
         credential:
           $ref: '#/components/schemas/Credential'
+        contact:
+          $ref: '#/components/schemas/Contact'
         createdOn:
           type: string
     UserDetail:
@@ -930,8 +932,6 @@ components:
           $ref: '#/components/schemas/Address'
         price:
           $ref: '#/components/schemas/RentalItemPrice'
-        contact:
-          $ref: '#/components/schemas/Contact'
         preferences:
           type: array
           items:
@@ -1041,8 +1041,6 @@ components:
           $ref: '#/components/schemas/Address'
         price:
           $ref: '#/components/schemas/RentalItemPrice'
-        contact:
-          $ref: '#/components/schemas/Contact'
         preferences:
           type: array
           items:
