@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.emela.chautari.model.Contact;
 import org.emela.chautari.model.Credential;
 import org.emela.chautari.model.UserDetail;
 import javax.validation.Valid;
@@ -13,7 +14,7 @@ import javax.validation.constraints.*;
 /**
  * UserAccountDetail
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-10T13:13:33.782-04:00[America/New_York]")
 
 public class UserAccountDetail   {
   @JsonProperty("user")
@@ -21,6 +22,9 @@ public class UserAccountDetail   {
 
   @JsonProperty("credential")
   private Credential credential = null;
+
+  @JsonProperty("contact")
+  private Contact contact = null;
 
   @JsonProperty("createdOn")
   private String createdOn = null;
@@ -67,6 +71,27 @@ public class UserAccountDetail   {
     this.credential = credential;
   }
 
+  public UserAccountDetail contact(Contact contact) {
+    this.contact = contact;
+    return this;
+  }
+
+  /**
+   * Get contact
+   * @return contact
+  **/
+  @ApiModelProperty(value = "")
+
+  @Valid
+
+  public Contact getContact() {
+    return contact;
+  }
+
+  public void setContact(Contact contact) {
+    this.contact = contact;
+  }
+
   public UserAccountDetail createdOn(String createdOn) {
     this.createdOn = createdOn;
     return this;
@@ -99,12 +124,13 @@ public class UserAccountDetail   {
     UserAccountDetail userAccountDetail = (UserAccountDetail) o;
     return Objects.equals(this.user, userAccountDetail.user) &&
         Objects.equals(this.credential, userAccountDetail.credential) &&
+        Objects.equals(this.contact, userAccountDetail.contact) &&
         Objects.equals(this.createdOn, userAccountDetail.createdOn);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(user, credential, createdOn);
+    return Objects.hash(user, credential, contact, createdOn);
   }
 
   @Override
@@ -114,6 +140,7 @@ public class UserAccountDetail   {
     
     sb.append("    user: ").append(toIndentedString(user)).append("\n");
     sb.append("    credential: ").append(toIndentedString(credential)).append("\n");
+    sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    createdOn: ").append(toIndentedString(createdOn)).append("\n");
     sb.append("}");
     return sb.toString();
