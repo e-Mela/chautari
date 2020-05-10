@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.emela.chautari.model.Address;
 import org.emela.chautari.model.Availability;
-import org.emela.chautari.model.Contact;
 import org.emela.chautari.model.RentalItemPreference;
 import org.emela.chautari.model.RentalItemPrice;
 import org.emela.chautari.model.RentalItemRequestFeatures;
@@ -21,7 +20,7 @@ import javax.validation.constraints.*;
 /**
  * RentalItemDetail
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-10T13:13:33.782-04:00[America/New_York]")
 
 public class RentalItemDetail   {
   @JsonProperty("title")
@@ -106,9 +105,6 @@ public class RentalItemDetail   {
 
   @JsonProperty("price")
   private RentalItemPrice price = null;
-
-  @JsonProperty("contact")
-  private Contact contact = null;
 
   @JsonProperty("preferences")
   @Valid
@@ -275,27 +271,6 @@ public class RentalItemDetail   {
     this.price = price;
   }
 
-  public RentalItemDetail contact(Contact contact) {
-    this.contact = contact;
-    return this;
-  }
-
-  /**
-   * Get contact
-   * @return contact
-  **/
-  @ApiModelProperty(value = "")
-
-  @Valid
-
-  public Contact getContact() {
-    return contact;
-  }
-
-  public void setContact(Contact contact) {
-    this.contact = contact;
-  }
-
   public RentalItemDetail preferences(List<RentalItemPreference> preferences) {
     this.preferences = preferences;
     return this;
@@ -433,7 +408,6 @@ public class RentalItemDetail   {
         Objects.equals(this.availability, rentalItemDetail.availability) &&
         Objects.equals(this.location, rentalItemDetail.location) &&
         Objects.equals(this.price, rentalItemDetail.price) &&
-        Objects.equals(this.contact, rentalItemDetail.contact) &&
         Objects.equals(this.preferences, rentalItemDetail.preferences) &&
         Objects.equals(this.features, rentalItemDetail.features) &&
         Objects.equals(this.postedBy, rentalItemDetail.postedBy) &&
@@ -443,7 +417,7 @@ public class RentalItemDetail   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(title, rentOf, viewedBy, status, availability, location, price, contact, preferences, features, postedBy, postedOn, imageIds);
+    return Objects.hash(title, rentOf, viewedBy, status, availability, location, price, preferences, features, postedBy, postedOn, imageIds);
   }
 
   @Override
@@ -458,7 +432,6 @@ public class RentalItemDetail   {
     sb.append("    availability: ").append(toIndentedString(availability)).append("\n");
     sb.append("    location: ").append(toIndentedString(location)).append("\n");
     sb.append("    price: ").append(toIndentedString(price)).append("\n");
-    sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    preferences: ").append(toIndentedString(preferences)).append("\n");
     sb.append("    features: ").append(toIndentedString(features)).append("\n");
     sb.append("    postedBy: ").append(toIndentedString(postedBy)).append("\n");

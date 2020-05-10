@@ -21,7 +21,7 @@ import java.util.Date;
 public class FeedbackEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private Star rating;
@@ -31,6 +31,10 @@ public class FeedbackEntity {
     @ManyToOne
     @JoinColumn(name = "userId")
     private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name = "rentalId")
+    private RentalEntity rental;
 
 
     @CreationTimestamp

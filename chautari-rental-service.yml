@@ -838,6 +838,9 @@ components:
             $ref: '#/components/schemas/SecurityQuestions'
     SecurityQuestions:
       type: object
+      required:
+        - question
+        - answer
       properties:
         question:
           type: string
@@ -845,10 +848,12 @@ components:
           type: string
     AuthenticationResponse:
       type: object
+      required:
+        - user-id
       properties:
-        message:
+        user-id:
           type: string
-        statusCode:
+        message:
           type: string
     UserAccountDetail:
       type: object

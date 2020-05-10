@@ -3,10 +3,10 @@ package org.emela.chautari.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,7 +32,11 @@ public class RentalEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private UUID rentalId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -42,29 +46,28 @@ public class RentalEntity {
 
     private String rentOf;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = AvailabilityEntity.class)
-    @JoinColumn(name = "id" )
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = AvailabilityEntity.class, mappedBy = "rentalEntity")
     private List<AvailabilityEntity> availabilityEntity;
 
-    @Embedded
-    private AddressEntity location;
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = AddressEntity.class, mappedBy = "rentalEntity")
+    private List<AddressEntity> location;
 
     private BigDecimal price;
 
     private String priceType;
 
-    @OneToMany(targetEntity = PreferenceEntity.class, cascade = CascadeType.ALL)
-    @JoinColumn(name = "id" )
+    @OneToMany(targetEntity = PreferenceEntity.class, cascade = CascadeType.ALL, mappedBy = "rentalEntity")
     private List<PreferenceEntity> preferences;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = FeatureEntity.class)
-    @JoinColumn(name = "id" )
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = FeatureEntity.class, mappedBy = "rentalEntity")
     private List<FeatureEntity> features;
 
 
     private ZonedDateTime postedOn;
 
-    private String resourceIds;
+    @OneToMany
+    @JoinColumn(name = "resourceId")
+    private List<ResourceEntity> resources;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

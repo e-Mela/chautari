@@ -3,15 +3,16 @@ package org.emela.chautari.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Embedded;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.util.Date;
@@ -27,7 +28,11 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private UUID userId;
 
     private String title;
@@ -38,16 +43,15 @@ public class UserEntity {
 
     private String middleName;
 
-    @Embedded
-    private AddressEntity addressEntity;
+    @OneToMany(cascade = CascadeType.ALL, targetEntity = AddressEntity.class, mappedBy = "userEntity")
+    private List<AddressEntity> addresses;
 
     private String userName;
 
     private String password;
 
-    @OneToMany
-    @JoinColumn(name = "id")
-    private List<SecurityQuestionEntity> securityQuestions;
+    @OneToOne(cascade = CascadeType.ALL, targetEntity = CredentialEntity.class, mappedBy = "userEntity")
+    private CredentialEntity credential;
 
     private String phone;
 
