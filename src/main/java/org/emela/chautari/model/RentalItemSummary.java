@@ -2,11 +2,8 @@ package org.emela.chautari.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.emela.chautari.model.Address;
-import org.emela.chautari.model.RentalItemPrice;
+
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 

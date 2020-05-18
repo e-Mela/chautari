@@ -2,14 +2,9 @@ package org.emela.chautari.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.emela.chautari.model.Contact;
-import org.emela.chautari.model.Credential;
-import org.emela.chautari.model.UserDetail;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 /**
  * UserAccountDetail

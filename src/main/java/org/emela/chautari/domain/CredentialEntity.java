@@ -20,7 +20,8 @@ public class CredentialEntity {
 
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, targetEntity = SecurityQuestionEntity.class, mappedBy = "credentialEntity")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = SecurityQuestionEntity.class,
+            mappedBy = "credentialEntity")
     private List<SecurityQuestionEntity> securityQuestions;
 
     @OneToOne(fetch = FetchType.LAZY)
