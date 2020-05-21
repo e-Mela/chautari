@@ -3,17 +3,22 @@ version: '3'
 services:
   docker-mysql:
     image: mysql:latest
+    ports:
+      - 3306:3306
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=test
       - MYSQL_PASSWORD=root
   spring-boot-jpa-docker-webapp:
+    restart: on-failure
+    build: ./
     image: chautari:1.0
     depends_on:
       - docker-mysql
     ports:
       - 8081:8080
     environment:
+      - SPRING_PROFILES_ACTIVE=local
       - DATABASE_HOST=docker-mysql
       - DATABASE_USER=root
       - DATABASE_PASSWORD=root

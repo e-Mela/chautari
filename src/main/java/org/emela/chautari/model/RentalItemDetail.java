@@ -4,16 +4,9 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import org.emela.chautari.model.Address;
-import org.emela.chautari.model.Availability;
-import org.emela.chautari.model.RentalItemPreference;
-import org.emela.chautari.model.RentalItemPrice;
-import org.emela.chautari.model.RentalItemRequestFeatures;
-import org.emela.chautari.model.UserDetail;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 

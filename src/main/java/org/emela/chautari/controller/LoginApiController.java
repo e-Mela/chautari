@@ -1,27 +1,31 @@
 package org.emela.chautari.controller;
 
 import org.emela.chautari.api.LoginApi;
-import org.springframework.stereotype.Controller;
+import org.emela.chautari.model.AuthenticationResponse;
+import org.emela.chautari.model.Credential;
+import org.emela.chautari.service.CredentialService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
-
-@Controller
+@RestController
 @RequestMapping("${openapi.chautariRentalService.base-path:/chautari}")
 public class LoginApiController implements LoginApi {
 
-    private final NativeWebRequest request;
+    private CredentialService credentialService;
 
-    @org.springframework.beans.factory.annotation.Autowired
-    public LoginApiController(NativeWebRequest request) {
-        this.request = request;
+    @Autowired
+    public LoginApiController(CredentialService credentialService) {
+        this.credentialService = credentialService;
     }
 
-    @Override
-    public Optional<NativeWebRequest> getRequest() {
-        return Optional.ofNullable(request);
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody Credential credential) {
+        AuthenticationResponse response = credentialService.login(credential);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }
