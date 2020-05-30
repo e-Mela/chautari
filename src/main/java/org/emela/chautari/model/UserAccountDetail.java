@@ -1,15 +1,17 @@
 package org.emela.chautari.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
+import java.util.Objects;
 
 /**
  * UserAccountDetail
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-10T13:13:33.782-04:00[America/New_York]")
+@Validated
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-30T14:08:38.460906-04:00[America/New_York]")
 
 public class UserAccountDetail   {
   @JsonProperty("user")

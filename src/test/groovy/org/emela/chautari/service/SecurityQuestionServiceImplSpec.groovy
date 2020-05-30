@@ -1,25 +1,25 @@
 package org.emela.chautari.service
 
-
 import org.emela.chautari.domain.CredentialEntity
 import org.emela.chautari.domain.SecurityQuestionEntity
 import org.emela.chautari.mapper.SecurityQuestionEntityMapper
 import org.emela.chautari.model.SecurityQuestion
 import org.emela.chautari.repository.SecurityQuestionRepository
+import org.emela.chautari.service.impl.SecurityQuestionServiceImpl
 import spock.lang.Specification
 
-class SecurityQuestionServiceSpec extends Specification {
+class SecurityQuestionServiceImplSpec extends Specification {
 
     def subject
     SecurityQuestionEntity capturedEntity
 
     def 'setup' () {
-        subject = new SecurityQuestionService(Mock(SecurityQuestionRepository), SecurityQuestionEntityMapper.INSTANCE)
+        subject = new SecurityQuestionServiceImpl(Mock(SecurityQuestionRepository), SecurityQuestionEntityMapper.INSTANCE)
     }
 
     def 'saveSecurityQuestion should convert security question to enitty and save to database' () {
         given:
-        def securityQuestion = SecurityQuestion.builder().question('fake question').answer('fake answer').build()
+        def securityQuestion = new SecurityQuestion().question('fake question').answer('fake answer')
 
         when:
         subject.saveSecurityQuestion(securityQuestion, new CredentialEntity())

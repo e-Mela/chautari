@@ -8,7 +8,7 @@ class AddressEntityMapperSpec extends Specification {
 
     def 'address entity mapper should map address to address entity class'() {
         given:
-        Address address = new Address(address1: 'fake address 1', address2: 'fake address 2', city: 'columbus', country: 'usa', zipCode:12345)
+        Address address = new Address(address1: 'fake address 1', address2: 'fake address 2', city: 'columbus', country: 'usa', zip: 12345)
 
         when:
         def result = AddressEntityMapper.INSTANCE.toAddressEntity(address)
@@ -20,7 +20,7 @@ class AddressEntityMapperSpec extends Specification {
         result.city == address.city
         result.country == address.country
         result.state == address.state
-        result.zipCode == address.zipCode
+        result.zipCode == address.zip
     }
 
     def 'address entity mapper should map address entity to address' () {
@@ -37,7 +37,7 @@ class AddressEntityMapperSpec extends Specification {
         result.city == entity.city
         result.state == entity.state
         result.country == entity.country
-        result.zipCode == entity.zipCode
+        result.zip == entity.zipCode
 
     }
 }

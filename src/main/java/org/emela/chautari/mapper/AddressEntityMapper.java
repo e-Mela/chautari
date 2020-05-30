@@ -14,6 +14,7 @@ public interface AddressEntityMapper extends BaseMapper {
 
     AddressEntityMapper INSTANCE = Mappers.getMapper(AddressEntityMapper.class);
 
+    @Mapping(source = "zip", target = "zipCode")
     AddressEntity toAddressEntity(Address source);
 
     @InheritInverseConfiguration

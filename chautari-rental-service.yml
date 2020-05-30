@@ -835,8 +835,8 @@ components:
         security-questions:
           type: array
           items:
-            $ref: '#/components/schemas/SecurityQuestions'
-    SecurityQuestions:
+            $ref: '#/components/schemas/SecurityQuestion'
+    SecurityQuestion:
       type: object
       required:
         - question

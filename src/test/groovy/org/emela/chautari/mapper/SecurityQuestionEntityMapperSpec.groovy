@@ -10,7 +10,7 @@ class SecurityQuestionEntityMapperSpec extends Specification {
 
     def 'toSecurityQuestionEntity should convert security question to security question entity' () {
         given:
-        def source = SecurityQuestion.builder().question('fake-question').answer('fake-answer').build()
+        def source = new SecurityQuestion().question('fake-question').answer('fake-answer')
 
         when:
         def result = subject.toSecurityQuestionEntity(source)

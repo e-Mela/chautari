@@ -10,7 +10,7 @@ class CredentialEntityMapperSpec extends Specification {
 
     def 'toCredentialEntity should convert credential to credentialEntity' () {
         given:
-        Credential credential = Credential.builder().userName('fake-user').password('fake-password').build()
+        Credential credential = new Credential().userName('fake-user').password('fake-password')
 
         when:
         def result = subject.toCredentialEntity(credential)
