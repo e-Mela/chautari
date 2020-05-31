@@ -1,4 +1,7 @@
 ## Chautari
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dcfb96a202a4457ebe04536672214beb)](https://app.codacy.com/gh/e-Mela/chautari?utm_source=github.com&utm_medium=referral&utm_content=e-Mela/chautari&utm_campaign=Badge_Grade_Settings)
+
 This is a rental platform back-end application.
 
 #### Chautari Service API:
