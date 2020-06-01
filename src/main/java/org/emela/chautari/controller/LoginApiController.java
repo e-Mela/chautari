@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequestMapping("${openapi.chautariRentalService.base-path:/chautari}")
 public class LoginApiController implements LoginApi {
 
-    private CredentialService credentialService;
+    private final CredentialService credentialService;
 
     @Autowired
     public LoginApiController(CredentialService credentialService) {
@@ -26,7 +26,7 @@ public class LoginApiController implements LoginApi {
     }
 
     @Override
-    public ResponseEntity<AuthenticationResponse> login(@ApiParam(value = "login request body"  )  @Valid @RequestBody Credential credential) {
+    public ResponseEntity<AuthenticationResponse> login(@ApiParam(value = "login request body") @Valid @RequestBody Credential credential) {
         AuthenticationResponse response = credentialService.login(credential);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

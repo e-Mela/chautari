@@ -23,6 +23,6 @@ task integrationTest(type: Test) {
 
 idea {
     module {
-        scopes.TEST.plus += [ configurations.integrationTestCompile ]
+        scopes.TEST.plus += [configurations.integrationTestCompile]
     }
 }

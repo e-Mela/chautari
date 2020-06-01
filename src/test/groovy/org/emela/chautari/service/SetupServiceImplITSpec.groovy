@@ -13,7 +13,7 @@ class SetupServiceImplITSpec extends Specification {
     @Autowired
     private SetupService service
 
-    def 'setupUser should take user detail and update database accordengly' () {
+    def 'setupUser should take user detail and update database accordengly'() {
         given:
         SecurityQuestion question1 = new SecurityQuestion().question('Fake Question')
                 .answer('Fake Answer')

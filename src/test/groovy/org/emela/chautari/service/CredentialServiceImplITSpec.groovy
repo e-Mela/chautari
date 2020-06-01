@@ -41,7 +41,7 @@ class CredentialServiceImplITSpec extends Specification {
         databaseSetup()
     }
 
-    def 'login with valid user name and password should return correct authentication response' () {
+    def 'login with valid user name and password should return correct authentication response'() {
         given:
         def credential = new Credential().userName("suseelbam").password("pass123")
 
@@ -54,7 +54,7 @@ class CredentialServiceImplITSpec extends Specification {
         response.message == 'success'
     }
 
-    def 'login with valid user name but invalid password should return correct authentication response' () {
+    def 'login with valid user name but invalid password should return correct authentication response'() {
         given:
         def credential = new Credential().userName("suseelbam").password("invalid password")
 
@@ -67,7 +67,7 @@ class CredentialServiceImplITSpec extends Specification {
         response.message == 'Invalid password!!!'
     }
 
-    def 'login with invalid user name and password should return correct authentication response' () {
+    def 'login with invalid user name and password should return correct authentication response'() {
         given:
         def credential = new Credential().userName("fake-user").password("pass123")
 

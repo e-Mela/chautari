@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityQuestionServiceImpl implements SecurityQuestionService {
 
-    private SecurityQuestionRepository securityQuestionRepository;
-    private SecurityQuestionEntityMapper mapper;
+    private final SecurityQuestionRepository securityQuestionRepository;
+    private final SecurityQuestionEntityMapper mapper;
 
     @Autowired
     public SecurityQuestionServiceImpl(SecurityQuestionRepository securityQuestionRepository, SecurityQuestionEntityMapper mapper) {

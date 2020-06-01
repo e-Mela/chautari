@@ -17,17 +17,17 @@ class AddressServiceImplSpec extends Specification {
         subject = new AddressServiceImpl(AddressEntityMapper.INSTANCE, Mock(AddressEntityRepository))
     }
 
-    def 'saveAddress should convert address to address entity and save to database' () {
+    def 'saveAddress should convert address to address entity and save to database'() {
         given:
         def user = new UserEntity()
         Address address = new Address().address1('fake address 1').address2('fake address 2').city('columbus')
-        .state('oh').zip(1234556).country('user')
+                .state('oh').zip(1234556).country('user')
 
         when:
         subject.saveAddress(address, user)
 
         then:
-        1 * subject.addressEntityRepository.save(_ as AddressEntity)  >> {arguments -> addressEntity = arguments[0]}
+        1 * subject.addressEntityRepository.save(_ as AddressEntity) >> { arguments -> addressEntity = arguments[0] }
         addressEntity instanceof AddressEntity
         addressEntity != null
         addressEntity.address1 == address.address1

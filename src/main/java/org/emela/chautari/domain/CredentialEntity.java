@@ -10,7 +10,7 @@ import java.util.List;
 public class CredentialEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String userName;

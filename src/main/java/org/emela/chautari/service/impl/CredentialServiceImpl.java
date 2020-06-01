@@ -15,8 +15,8 @@ import java.util.Optional;
 @Service
 public class CredentialServiceImpl implements CredentialService {
 
-    private CredentialEntityRepository credentialEntityRepository;
-    private CredentialEntityMapper mapper;
+    private final CredentialEntityRepository credentialEntityRepository;
+    private final CredentialEntityMapper mapper;
 
     @Autowired
     public CredentialServiceImpl(CredentialEntityRepository credentialEntityRepository, CredentialEntityMapper mapper) {
@@ -44,12 +44,12 @@ public class CredentialServiceImpl implements CredentialService {
 
         Optional<CredentialEntity> response;
         response = credentialEntityRepository.findByUserNameAndPassword(credential.getUserName(), credential.getPassword());
-        if(response.isPresent()) {
+        if (response.isPresent()) {
             return new AuthenticationResponse().userId(response.get().getUserName()).message("success");
         }
 
         response = credentialEntityRepository.findByUserName(credential.getUserName());
-        if(response.isPresent()) {
+        if (response.isPresent()) {
             return new AuthenticationResponse().userId(credential.getUserName()).message("Invalid password!!!");
         }
 

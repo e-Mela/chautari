@@ -6,7 +6,9 @@
 package org.emela.chautari.api;
 
 import io.swagger.annotations.*;
-import org.emela.chautari.model.*;
+import org.emela.chautari.model.ErrorModel;
+import org.emela.chautari.model.SetupResponse;
+import org.emela.chautari.model.UserAccountDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,23 +29,23 @@ public interface SetupApi {
         return Optional.empty();
     }
 
-    @ApiOperation(value = "create user account", nickname = "setUpUserAccount", notes = "", response = SetupResponse.class, tags={  })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = SetupResponse.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
-        @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
-        @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @ApiOperation(value = "create user account", nickname = "setUpUserAccount", notes = "", response = SetupResponse.class, tags = {})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = SetupResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class)})
     @RequestMapping(value = "/setup",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<SetupResponse> setUpUserAccount(@ApiParam(value = "setup request body"  )  @Valid @RequestBody UserAccountDetail userAccountDetail) {
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.POST)
+    default ResponseEntity<SetupResponse> setUpUserAccount(@ApiParam(value = "setup request body") @Valid @RequestBody UserAccountDetail userAccountDetail) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"user-id\" : \"user-id\",  \"message\" : \"message\"}");
                     break;

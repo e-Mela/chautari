@@ -6,7 +6,9 @@
 package org.emela.chautari.api;
 
 import io.swagger.annotations.*;
-import org.emela.chautari.model.*;
+import org.emela.chautari.model.AuthenticationResponse;
+import org.emela.chautari.model.Credential;
+import org.emela.chautari.model.ErrorModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
 import java.util.Optional;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 @Validated
@@ -28,23 +31,23 @@ public interface LoginApi {
         return Optional.empty();
     }
 
-    @ApiOperation(value = "user login endpoint", nickname = "login", notes = "accept user credentials", response = AuthenticationResponse.class, tags={  })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = AuthenticationResponse.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
-        @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
-        @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @ApiOperation(value = "user login endpoint", nickname = "login", notes = "accept user credentials", response = AuthenticationResponse.class, tags = {})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = AuthenticationResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class)})
     @RequestMapping(value = "/login",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<AuthenticationResponse> login(@ApiParam(value = "login request body"  )  @Valid @RequestBody Credential credential) {
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.POST)
+    default ResponseEntity<AuthenticationResponse> login(@ApiParam(value = "login request body") @Valid @RequestBody Credential credential) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"message\" : \"message\",  \"statusCode\" : \"statusCode\"}");
                     break;

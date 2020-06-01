@@ -13,6 +13,7 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.UUID;
 
+@SuppressWarnings("ALL")
 @Data
 @Entity(name = "resource")
 @ToString

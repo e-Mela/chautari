@@ -8,5 +8,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface SecurityQuestionService {
 
-   SecurityQuestionEntity saveSecurityQuestion(SecurityQuestion securityQuestion, CredentialEntity credentialEntity);
+    SecurityQuestionEntity saveSecurityQuestion(SecurityQuestion securityQuestion, CredentialEntity credentialEntity);
 }

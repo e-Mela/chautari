@@ -8,7 +8,7 @@ class SecurityQuestionEntityMapperSpec extends Specification {
 
     def subject = SecurityQuestionEntityMapper.INSTANCE
 
-    def 'toSecurityQuestionEntity should convert security question to security question entity' () {
+    def 'toSecurityQuestionEntity should convert security question to security question entity'() {
         given:
         def source = new SecurityQuestion().question('fake-question').answer('fake-answer')
 
@@ -23,7 +23,7 @@ class SecurityQuestionEntityMapperSpec extends Specification {
     }
 
 
-    def 'toSecurityQuestion should convert security question entity to security question' () {
+    def 'toSecurityQuestion should convert security question entity to security question'() {
         given:
         def entity = new SecurityQuestionEntity(question: 'fake-question', answer: 'fake-answer')
 

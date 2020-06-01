@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class SetupServiceImpl implements SetupService {
 
-    private UserEntityRepository userEntityRepository;
-    private UserEntityMapper userEntityMapper;
-    private CredentialServiceImpl credentialServiceImpl;
-    private SecurityQuestionServiceImpl securityQuestionServiceImpl;
-    private AddressServiceImpl addressServiceImpl;
+    private final UserEntityRepository userEntityRepository;
+    private final UserEntityMapper userEntityMapper;
+    private final CredentialServiceImpl credentialServiceImpl;
+    private final SecurityQuestionServiceImpl securityQuestionServiceImpl;
+    private final AddressServiceImpl addressServiceImpl;
 
     @Autowired
     public SetupServiceImpl(UserEntityRepository userEntityRepository,

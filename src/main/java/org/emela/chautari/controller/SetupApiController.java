@@ -20,7 +20,7 @@ import javax.validation.Valid;
 @RequestMapping("${openapi.chautariRentalService.base-path:/chautari}")
 public class SetupApiController implements SetupApi {
 
-    private SetupService setupService;
+    private final SetupService setupService;
 
     @Autowired
     public SetupApiController(SetupService setupService) {
@@ -28,7 +28,7 @@ public class SetupApiController implements SetupApi {
     }
 
     @Override
-    public ResponseEntity<SetupResponse> setUpUserAccount(@ApiParam(value = "setup request body"  )  @Valid @RequestBody UserAccountDetail userAccountDetail) {
+    public ResponseEntity<SetupResponse> setUpUserAccount(@ApiParam(value = "setup request body") @Valid @RequestBody UserAccountDetail userAccountDetail) {
         //log.info("processing new user as: "+ userAccountDetail.getUser().getPerson().getFirstName());
         return new ResponseEntity<>(setupService.setupUser(userAccountDetail), HttpStatus.OK);
     }

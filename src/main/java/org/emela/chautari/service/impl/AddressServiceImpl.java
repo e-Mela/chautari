@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class AddressServiceImpl implements AddressService {
 
-    private AddressEntityMapper addressEntityMapper;
-    private AddressEntityRepository addressEntityRepository;
+    private final AddressEntityMapper addressEntityMapper;
+    private final AddressEntityRepository addressEntityRepository;
 
     @Autowired
     public AddressServiceImpl(AddressEntityMapper addressEntityMapper, AddressEntityRepository addressEntityRepository) {

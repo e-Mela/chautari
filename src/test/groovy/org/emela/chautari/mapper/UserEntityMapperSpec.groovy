@@ -9,12 +9,12 @@ class UserEntityMapperSpec extends Specification {
 
     def subject = UserEntityMapper.INSTANCE
 
-    def 'toUserEntity should convert user detail to user entity' () {
+    def 'toUserEntity should convert user detail to user entity'() {
         given:
         UserAccountDetail userDetail = new UserAccountDetail().user(new UserDetail().person(new Person().firstName('suseel').lastName('bam').title(Person.TitleEnum.MR))
                 .address(new Address().address1('address 1').address2('').city('columbus').state('OH').zip(12345).country('use')))
                 .credential(new Credential().userName('fake-user').password('fake-password'))
-        .contact(new Contact().phoneNumber('1234567890').email('fake@email.com'))
+                .contact(new Contact().phoneNumber('1234567890').email('fake@email.com'))
 
         when:
         def result = subject.toUserEntity(userDetail)
@@ -31,9 +31,9 @@ class UserEntityMapperSpec extends Specification {
         result.credential == null
     }
 
-    def 'toUserDetail should convert user entity to user detail' () {
+    def 'toUserDetail should convert user entity to user detail'() {
         given:
-        UserEntity entity = new UserEntity(firstName: 'suseel', lastName: 'bam',  phone: '1234567890', email: 'fake@email.com')
+        UserEntity entity = new UserEntity(firstName: 'suseel', lastName: 'bam', phone: '1234567890', email: 'fake@email.com')
 
         when:
         def result = subject.toUserAccountDetail(entity)

@@ -8,7 +8,7 @@ class CredentialEntityMapperSpec extends Specification {
 
     def subject = CredentialEntityMapper.INSTANCE
 
-    def 'toCredentialEntity should convert credential to credentialEntity' () {
+    def 'toCredentialEntity should convert credential to credentialEntity'() {
         given:
         Credential credential = new Credential().userName('fake-user').password('fake-password')
 
@@ -22,7 +22,7 @@ class CredentialEntityMapperSpec extends Specification {
         result.securityQuestions.size() == 0
     }
 
-    def 'toCredential should convert credential entity to credential' () {
+    def 'toCredential should convert credential entity to credential'() {
         given:
         CredentialEntity entity = new CredentialEntity(userName: 'fake-user', password: 'fake-password')
 

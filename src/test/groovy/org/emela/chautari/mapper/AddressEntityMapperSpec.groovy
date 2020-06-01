@@ -23,7 +23,7 @@ class AddressEntityMapperSpec extends Specification {
         result.zipCode == address.zip
     }
 
-    def 'address entity mapper should map address entity to address' () {
+    def 'address entity mapper should map address entity to address'() {
         given:
         AddressEntity entity = new AddressEntity(address1: 'fake address 1', address2: 'fake address 2', city: 'col', state: 'oh', zipCode: 123456, country: 'usa')
 

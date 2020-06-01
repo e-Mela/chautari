@@ -31,7 +31,7 @@ class LoginApiControllerITSpec extends Specification {
 
     private MockMvc mockMvc
 
-    def 'setup' () {
+    def 'setup'() {
         //Init MockMvc Object and build
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build()
     }

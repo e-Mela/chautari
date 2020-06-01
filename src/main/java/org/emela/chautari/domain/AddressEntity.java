@@ -9,7 +9,7 @@ import javax.persistence.*;
 public class AddressEntity extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String address1;
