@@ -835,8 +835,8 @@ components:
         security-questions:
           type: array
           items:
-            $ref: '#/components/schemas/SecurityQuestions'
-    SecurityQuestions:
+            $ref: '#/components/schemas/SecurityQuestion'
+    SecurityQuestion:
       type: object
       required:
         - question
@@ -922,7 +922,6 @@ components:
     RentalItemRequest:
       type: object
       required:
-        - saf
       properties:
         user-id:
           type: string
@@ -1008,7 +1007,7 @@ components:
         - price
         - rentOf
         - location
-        - image
+        - image-id
       properties:
         title:
           type: string

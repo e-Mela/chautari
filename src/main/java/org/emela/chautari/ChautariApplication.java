@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ChautariApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ChautariApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ChautariApplication.class, args);
+    }
 
 }

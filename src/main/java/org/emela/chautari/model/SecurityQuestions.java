@@ -8,19 +8,19 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
- * SecurityQuestion
+ * SecurityQuestions
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-30T14:41:07.663793-04:00[America/New_York]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-30T14:35:06.739204-04:00[America/New_York]")
 
-public class SecurityQuestion {
+public class SecurityQuestions {
     @JsonProperty("question")
     private String question = null;
 
     @JsonProperty("answer")
     private String answer = null;
 
-    public SecurityQuestion question(String question) {
+    public SecurityQuestions question(String question) {
         this.question = question;
         return this;
     }
@@ -42,7 +42,7 @@ public class SecurityQuestion {
         this.question = question;
     }
 
-    public SecurityQuestion answer(String answer) {
+    public SecurityQuestions answer(String answer) {
         this.answer = answer;
         return this;
     }
@@ -73,9 +73,9 @@ public class SecurityQuestion {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        SecurityQuestion securityQuestion = (SecurityQuestion) o;
-        return Objects.equals(this.question, securityQuestion.question) &&
-                Objects.equals(this.answer, securityQuestion.answer);
+        SecurityQuestions securityQuestions = (SecurityQuestions) o;
+        return Objects.equals(this.question, securityQuestions.question) &&
+                Objects.equals(this.answer, securityQuestions.answer);
     }
 
     @Override
@@ -86,7 +86,7 @@ public class SecurityQuestion {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class SecurityQuestion {\n");
+        sb.append("class SecurityQuestions {\n");
 
         sb.append("    question: ").append(toIndentedString(question)).append("\n");
         sb.append("    answer: ").append(toIndentedString(answer)).append("\n");

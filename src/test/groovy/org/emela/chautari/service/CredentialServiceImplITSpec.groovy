@@ -12,7 +12,7 @@ import spock.lang.Specification
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE
 
 @SpringBootTest(webEnvironment = NONE)
-class CredentialServiceITSpec extends Specification {
+class CredentialServiceImplITSpec extends Specification {
 
     @Autowired
     private CredentialService credentialService
@@ -41,9 +41,9 @@ class CredentialServiceITSpec extends Specification {
         databaseSetup()
     }
 
-    def 'login with valid user name and password should return correct authentication response' () {
+    def 'login with valid user name and password should return correct authentication response'() {
         given:
-        def credential = Credential.builder().userName("suseelbam").password("pass123").build()
+        def credential = new Credential().userName("suseelbam").password("pass123")
 
         when:
         def response = credentialService.login(credential)
@@ -54,9 +54,9 @@ class CredentialServiceITSpec extends Specification {
         response.message == 'success'
     }
 
-    def 'login with valid user name but invalid password should return correct authentication response' () {
+    def 'login with valid user name but invalid password should return correct authentication response'() {
         given:
-        def credential = Credential.builder().userName("suseelbam").password("invalid password").build()
+        def credential = new Credential().userName("suseelbam").password("invalid password")
 
         when:
         def response = credentialService.login(credential)
@@ -67,9 +67,9 @@ class CredentialServiceITSpec extends Specification {
         response.message == 'Invalid password!!!'
     }
 
-    def 'login with invalid user name and password should return correct authentication response' () {
+    def 'login with invalid user name and password should return correct authentication response'() {
         given:
-        def credential = Credential.builder().userName("fake-user").password("pass123").build()
+        def credential = new Credential().userName("fake-user").password("pass123")
 
         when:
         def response = credentialService.login(credential)
@@ -81,20 +81,20 @@ class CredentialServiceITSpec extends Specification {
     }
 
     def databaseSetup() {
-        SecurityQuestion question1 = SecurityQuestion.builder().question("Fake Question")
-                .answer("Fake Answer").build()
-        SecurityQuestion question2 = SecurityQuestion.builder().question("Fake Question 2")
-                .answer("Fake Answer 2").build()
-        Credential credential = Credential.builder().userName("suseelbam").password("pass123")
-                .securityQuestions(Arrays.asList(question1, question2)).build()
+        SecurityQuestion question1 = new SecurityQuestion().question("Fake Question")
+                .answer("Fake Answer")
+        SecurityQuestion question2 = new SecurityQuestion().question("Fake Question 2")
+                .answer("Fake Answer 2")
+        Credential credential = new Credential().userName("suseelbam").password("pass123")
+                .securityQuestions(Arrays.asList(question1, question2))
 
-        Person person = Person.builder().firstName("suseel").lastName("bam").build()
-        Contact contact = Contact.builder().email("my@email").phoneNumber("1234567890").build()
-        Address address = Address.builder().address1("address 1").address2("address 2").city("columbus")
-                .state("OH").zipCode(123456).country("USA").build()
+        Person person = new Person().firstName("suseel").lastName("bam")
+        Contact contact = new Contact().email("my@email").phoneNumber("1234567890")
+        Address address = new Address().address1("address 1").address2("address 2").city("columbus")
+                .state("OH").zip(123456).country("USA")
 
-        def userDetail = UserDetail.builder().address(address).contact(contact).person(person).credential(credential).build()
+        def userAccountDetail = new UserAccountDetail().user(new UserDetail().address(address).person(person)).contact(contact).credential(credential)
 
-        setupService.setupUser(userDetail)
+        setupService.setupUser(userAccountDetail)
     }
 }

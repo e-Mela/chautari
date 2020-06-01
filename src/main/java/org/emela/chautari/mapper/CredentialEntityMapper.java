@@ -16,6 +16,7 @@ import org.mapstruct.factory.Mappers;
 public interface CredentialEntityMapper extends BaseMapper {
 
     CredentialEntityMapper INSTANCE = Mappers.getMapper(CredentialEntityMapper.class);
+
     CredentialEntity toCredentialEntity(Credential credential);
 
     @InheritInverseConfiguration

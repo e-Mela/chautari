@@ -31,17 +31,17 @@ class LoginApiControllerITSpec extends Specification {
 
     private MockMvc mockMvc
 
-    def 'setup' () {
+    def 'setup'() {
         //Init MockMvc Object and build
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build()
     }
 
 
     def 'user should use /login post call to authenticate'() {
         given:
-        Credential credential = Credential.builder().userName('fake-user').password('fake-pass').build()
+        Credential credential = new Credential().userName('fake-user').password('fake-pass')
 
-        credentialService.login(_ as Credential) >> AuthenticationResponse.builder().userId('fake it').message('success').build()
+        credentialService.login(_ as Credential) >> new AuthenticationResponse().userId('fake it').message('success')
 
         when:
         def results = mockMvc.perform((post('/chautari/login')

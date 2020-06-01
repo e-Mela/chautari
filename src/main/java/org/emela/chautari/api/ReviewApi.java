@@ -5,24 +5,21 @@
  */
 package org.emela.chautari.api;
 
-import org.emela.chautari.model.*;
+import io.swagger.annotations.*;
+import org.emela.chautari.model.ErrorModel;
 import org.emela.chautari.model.Review;
 import org.emela.chautari.model.Reviews;
-import io.swagger.annotations.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.NativeWebRequest;
 
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
+
 @javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
 
 @Validated
@@ -34,24 +31,24 @@ public interface ReviewApi {
     }
 
     @ApiOperation(value = "create new review for rental item", nickname = "addReview", notes = "Provides user to like and comment rental item", response = Review.class, authorizations = {
-        @Authorization(value = "bearerAuth")
-    }, tags={  })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = Review.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
-        @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
-        @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+            @Authorization(value = "bearerAuth")
+    }, tags = {})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Review.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class)})
     @RequestMapping(value = "/review/{rental-id}",
-        produces = { "application/json" }, 
-        consumes = { "application/json" },
-        method = RequestMethod.POST)
-    default ResponseEntity<Review> addReview(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "user-id", required = true) String userId,@ApiParam(value = ""  )  @Valid @RequestBody Review review) {
+            produces = {"application/json"},
+            consumes = {"application/json"},
+            method = RequestMethod.POST)
+    default ResponseEntity<Review> addReview(@ApiParam(value = "", required = true) @PathVariable("rental-id") String rentalId, @NotNull @ApiParam(value = "", required = true) @Valid @RequestParam(value = "user-id", required = true) String userId, @ApiParam(value = "") @Valid @RequestBody Review review) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"like\" : 6,  \"comment\" : \"comment\",  \"reviewer\" : \"reviewer\"}");
                     break;
@@ -64,23 +61,23 @@ public interface ReviewApi {
 
 
     @ApiOperation(value = "return reviews of rental item", nickname = "getReviews", notes = "Provides like and comment of rental item", response = Reviews.class, authorizations = {
-        @Authorization(value = "bearerAuth")
-    }, tags={  })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = Reviews.class),
-        @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
-        @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
-        @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
-        @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-        @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+            @Authorization(value = "bearerAuth")
+    }, tags = {})
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Reviews.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class)})
     @RequestMapping(value = "/review/{rental-id}",
-        produces = { "application/json" }, 
-        method = RequestMethod.GET)
-    default ResponseEntity<Reviews> getReviews(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
+            produces = {"application/json"},
+            method = RequestMethod.GET)
+    default ResponseEntity<Reviews> getReviews(@ApiParam(value = "", required = true) @PathVariable("rental-id") String rentalId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"reviews\" : [ {    \"like\" : 6,    \"comment\" : \"comment\",    \"reviewer\" : \"reviewer\"  }, {    \"like\" : 6,    \"comment\" : \"comment\",    \"reviewer\" : \"reviewer\"  } ],  \"avarage-like\" : 0.80082819046101150206595775671303272247314453125}");
                     break;

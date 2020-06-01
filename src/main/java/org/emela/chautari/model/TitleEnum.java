@@ -9,16 +9,10 @@ public enum TitleEnum {
     MISS("Miss"),
     NOT_SPECIFIED("Not Specified");
 
-    private String value;
+    private final String value;
 
     TitleEnum(String value) {
         this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-        return String.valueOf(value);
     }
 
     @JsonCreator
@@ -29,5 +23,11 @@ public enum TitleEnum {
             }
         }
         throw new IllegalArgumentException("Unexpected value '" + text + "'");
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+        return String.valueOf(value);
     }
 }

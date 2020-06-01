@@ -2,7 +2,7 @@ package org.emela.chautari.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.emela.chautari.model.SetupResponse
-import org.emela.chautari.model.UserDetail
+import org.emela.chautari.model.UserAccountDetail
 import org.emela.chautari.service.SetupService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -31,7 +31,7 @@ class SetupApiControllerSpec extends Specification {
 
     private MockMvc mockMvc
 
-    def 'setup' () {
+    def 'setup'() {
         //Init MockMvc Object and build
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build()
     }
@@ -39,8 +39,8 @@ class SetupApiControllerSpec extends Specification {
 
     def 'user should use /setup to create new user'() {
         given:
-        UserDetail userDetail = UserDetail.builder().build()
-        setupService.setupUser(_ as UserDetail) >> SetupResponse.builder().message('success').build()
+        UserAccountDetail userDetail = new UserAccountDetail()
+        setupService.setupUser(_ as UserAccountDetail) >> new SetupResponse().message('success')
 
         when:
         def results = mockMvc.perform((post('/chautari/setup')

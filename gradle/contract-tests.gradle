@@ -35,7 +35,7 @@ task contractTest(type: Test) {
 
 idea {
     module {
-        scopes.TEST.plus += [ configurations.contractTestCompile ]
+        scopes.TEST.plus += [configurations.contractTestCompile]
     }
 }
 
