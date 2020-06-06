@@ -12,6 +12,7 @@ ext {
 }
 
 
+
 group = 'org.emela'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -53,7 +54,8 @@ jar {
 
 
 repositories {
-    mavenCentral()
+	mavenCentral()
+	jcenter()
 }
 
 dependencies {
@@ -91,3 +93,6 @@ idea {
         outputDir = file("$buildDir/classes/main/")
     }
 }
+
+
+apply from: "gradle/integration-tests.gradle"

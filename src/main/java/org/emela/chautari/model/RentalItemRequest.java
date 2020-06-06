@@ -1,19 +1,25 @@
 package org.emela.chautari.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import org.emela.chautari.model.Address;
+import org.emela.chautari.model.Availability;
+import org.emela.chautari.model.Feature;
+import org.emela.chautari.model.RentalItemPreference;
+import org.emela.chautari.model.RentalItemPrice;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * RentalItemRequest
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-10T13:13:33.782-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-31T10:46:01.641-04:00[America/New_York]")
 
 public class RentalItemRequest {
     @JsonProperty("user-id")
@@ -21,21 +27,60 @@ public class RentalItemRequest {
 
     @JsonProperty("title")
     private String title = null;
+
+    /**
+     * Gets or Sets rentOf
+     */
+    public enum RentOfEnum {
+        ROOM("room");
+
+        private String value;
+
+        RentOfEnum(String value) {
+            this.value = value;
+        }
+
+        @Override
+        @JsonValue
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        @JsonCreator
+        public static RentOfEnum fromValue(String text) {
+            for (RentOfEnum b : RentOfEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            throw new IllegalArgumentException("Unexpected value '" + text + "'");
+        }
+    }
+
     @JsonProperty("rentOf")
     private RentOfEnum rentOf = null;
+
     @JsonProperty("availability")
-    private Availability availability = null;
+    @Valid
+    private List<Availability> availability = null;
+
     @JsonProperty("location")
     private Address location = null;
+
     @JsonProperty("price")
     private RentalItemPrice price = null;
+
     @JsonProperty("preferences")
     @Valid
     private List<RentalItemPreference> preferences = null;
+
     @JsonProperty("features")
-    private RentalItemRequestFeatures features = null;
+    @Valid
+    private List<Feature> features = null;
+
     @JsonProperty("postedOn")
     private String postedOn = null;
+
     @JsonProperty("image-ids")
     @Valid
     private List<String> imageIds = null;
@@ -47,11 +92,10 @@ public class RentalItemRequest {
 
     /**
      * Get userId
-     *
+     * 
      * @return userId
      **/
     @ApiModelProperty(value = "")
-
 
     public String getUserId() {
         return userId;
@@ -68,11 +112,10 @@ public class RentalItemRequest {
 
     /**
      * Get title
-     *
+     * 
      * @return title
      **/
     @ApiModelProperty(value = "")
-
 
     public String getTitle() {
         return title;
@@ -89,11 +132,10 @@ public class RentalItemRequest {
 
     /**
      * Get rentOf
-     *
+     * 
      * @return rentOf
      **/
     @ApiModelProperty(value = "")
-
 
     public RentOfEnum getRentOf() {
         return rentOf;
@@ -103,25 +145,33 @@ public class RentalItemRequest {
         this.rentOf = rentOf;
     }
 
-    public RentalItemRequest availability(Availability availability) {
+    public RentalItemRequest availability(List<Availability> availability) {
         this.availability = availability;
+        return this;
+    }
+
+    public RentalItemRequest addAvailabilityItem(Availability availabilityItem) {
+        if (this.availability == null) {
+            this.availability = new ArrayList<>();
+        }
+        this.availability.add(availabilityItem);
         return this;
     }
 
     /**
      * Get availability
-     *
+     * 
      * @return availability
      **/
     @ApiModelProperty(value = "")
 
     @Valid
 
-    public Availability getAvailability() {
+    public List<Availability> getAvailability() {
         return availability;
     }
 
-    public void setAvailability(Availability availability) {
+    public void setAvailability(List<Availability> availability) {
         this.availability = availability;
     }
 
@@ -132,7 +182,7 @@ public class RentalItemRequest {
 
     /**
      * Get location
-     *
+     * 
      * @return location
      **/
     @ApiModelProperty(value = "")
@@ -154,7 +204,7 @@ public class RentalItemRequest {
 
     /**
      * Get price
-     *
+     * 
      * @return price
      **/
     @ApiModelProperty(value = "")
@@ -184,7 +234,7 @@ public class RentalItemRequest {
 
     /**
      * Get preferences
-     *
+     * 
      * @return preferences
      **/
     @ApiModelProperty(value = "")
@@ -199,25 +249,33 @@ public class RentalItemRequest {
         this.preferences = preferences;
     }
 
-    public RentalItemRequest features(RentalItemRequestFeatures features) {
+    public RentalItemRequest features(List<Feature> features) {
         this.features = features;
+        return this;
+    }
+
+    public RentalItemRequest addFeaturesItem(Feature featuresItem) {
+        if (this.features == null) {
+            this.features = new ArrayList<>();
+        }
+        this.features.add(featuresItem);
         return this;
     }
 
     /**
      * Get features
-     *
+     * 
      * @return features
      **/
     @ApiModelProperty(value = "")
 
     @Valid
 
-    public RentalItemRequestFeatures getFeatures() {
+    public List<Feature> getFeatures() {
         return features;
     }
 
-    public void setFeatures(RentalItemRequestFeatures features) {
+    public void setFeatures(List<Feature> features) {
         this.features = features;
     }
 
@@ -228,11 +286,10 @@ public class RentalItemRequest {
 
     /**
      * Get postedOn
-     *
+     * 
      * @return postedOn
      **/
     @ApiModelProperty(value = "")
-
 
     public String getPostedOn() {
         return postedOn;
@@ -257,11 +314,10 @@ public class RentalItemRequest {
 
     /**
      * Get imageIds
-     *
+     * 
      * @return imageIds
      **/
     @ApiModelProperty(value = "")
-
 
     public List<String> getImageIds() {
         return imageIds;
@@ -272,7 +328,7 @@ public class RentalItemRequest {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(java.lang.Object o) {
         if (this == o) {
             return true;
         }
@@ -280,21 +336,22 @@ public class RentalItemRequest {
             return false;
         }
         RentalItemRequest rentalItemRequest = (RentalItemRequest) o;
-        return Objects.equals(this.userId, rentalItemRequest.userId) &&
-                Objects.equals(this.title, rentalItemRequest.title) &&
-                Objects.equals(this.rentOf, rentalItemRequest.rentOf) &&
-                Objects.equals(this.availability, rentalItemRequest.availability) &&
-                Objects.equals(this.location, rentalItemRequest.location) &&
-                Objects.equals(this.price, rentalItemRequest.price) &&
-                Objects.equals(this.preferences, rentalItemRequest.preferences) &&
-                Objects.equals(this.features, rentalItemRequest.features) &&
-                Objects.equals(this.postedOn, rentalItemRequest.postedOn) &&
-                Objects.equals(this.imageIds, rentalItemRequest.imageIds);
+        return Objects.equals(this.userId, rentalItemRequest.userId)
+                && Objects.equals(this.title, rentalItemRequest.title)
+                && Objects.equals(this.rentOf, rentalItemRequest.rentOf)
+                && Objects.equals(this.availability, rentalItemRequest.availability)
+                && Objects.equals(this.location, rentalItemRequest.location)
+                && Objects.equals(this.price, rentalItemRequest.price)
+                && Objects.equals(this.preferences, rentalItemRequest.preferences)
+                && Objects.equals(this.features, rentalItemRequest.features)
+                && Objects.equals(this.postedOn, rentalItemRequest.postedOn)
+                && Objects.equals(this.imageIds, rentalItemRequest.imageIds);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, title, rentOf, availability, location, price, preferences, features, postedOn, imageIds);
+        return Objects.hash(userId, title, rentOf, availability, location, price, preferences, features, postedOn,
+                imageIds);
     }
 
     @Override
@@ -320,40 +377,10 @@ public class RentalItemRequest {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(Object o) {
+    private String toIndentedString(java.lang.Object o) {
         if (o == null) {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
     }
-
-    /**
-     * Gets or Sets rentOf
-     */
-    public enum RentOfEnum {
-        ROOM("room");
-
-        private String value;
-
-        RentOfEnum(String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static RentOfEnum fromValue(String text) {
-            for (RentOfEnum b : RentOfEnum.values()) {
-                if (String.valueOf(b.value).equals(text)) {
-                    return b;
-                }
-            }
-            throw new IllegalArgumentException("Unexpected value '" + text + "'");
-        }
-
-        @Override
-        @JsonValue
-        public String toString() {
-            return String.valueOf(value);
-        }
-    }
 }
-

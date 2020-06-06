@@ -931,7 +931,9 @@ components:
           type: string
           enum: [room]
         availability:
-          $ref: '#/components/schemas/Availability'
+          type: array
+          items:
+            $ref: '#/components/schemas/Availability'
         location:
           $ref: '#/components/schemas/Address'
         price:
@@ -941,16 +943,9 @@ components:
           items:
             $ref:  '#/components/schemas/RentalItemPreference'
         features:
-          type: object
-          properties:
-            available:
-              type: array
-              items:
-                type: string
-            not-available:
-              type: array
-              items:
-                type: string
+          type: array
+          items:
+            $ref:  '#/components/schemas/Feature'
         postedOn:
           type: string
         image-ids:
@@ -958,6 +953,16 @@ components:
           items:
             type: string
             example: 123423241
+    Feature:
+      type: object
+      required:
+        - feature
+        - available
+      properties:
+        feature:
+          type: string
+        available:
+          type: boolean
     RentalItemPreference:
       type: object
       required:
@@ -973,7 +978,7 @@ components:
       properties:
         value:
           type: number
-        type:
+        negotiable:
           type: boolean
     Contact:
       type: object
@@ -986,20 +991,23 @@ components:
           type: string
     Availability:
       type: object
+      required:
+        - duration
+        - available
       properties:
-        available:
+        duration:
           $ref: '#/components/schemas/Duration'
-        not-available:
-          type: array
-          items:
-            $ref: '#/components/schemas/Duration'
+        available:
+          type: boolean
     Duration:
       type: object
       properties:
         start-date:
           type: string
+          format: date-time
         end-date:
           type: string
+          format: date-time
     RentalItemSummary:
       type: object
       required:
@@ -1040,7 +1048,9 @@ components:
           type: string
           enum: [New, Pending, Booked ]
         availability:
-          $ref: '#/components/schemas/Availability'
+          type: array
+          items:
+            $ref: '#/components/schemas/Availability'
         location:
           $ref: '#/components/schemas/Address'
         price:
@@ -1068,7 +1078,7 @@ components:
           type: array
           items:
             type: string
-            example: 123423241
+            example: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     ResourceResponse:
       type: object
       properties:

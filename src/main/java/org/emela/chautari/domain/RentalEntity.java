@@ -1,5 +1,6 @@
 package org.emela.chautari.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -45,7 +46,7 @@ public class RentalEntity {
 
     private BigDecimal price;
 
-    private String priceType;
+    private boolean negotiable;
 
     @OneToMany(targetEntity = PreferenceEntity.class, cascade = CascadeType.ALL, mappedBy = "rentalEntity")
     private List<PreferenceEntity> preferences;

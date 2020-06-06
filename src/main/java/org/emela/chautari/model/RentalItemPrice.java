@@ -1,23 +1,25 @@
 package org.emela.chautari.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModelProperty;
-
-import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.math.BigDecimal;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * RentalItemPrice
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-10T13:13:33.782-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-31T10:46:01.641-04:00[America/New_York]")
 
 public class RentalItemPrice {
     @JsonProperty("value")
     private BigDecimal value = null;
 
-    @JsonProperty("type")
-    private Boolean type = null;
+    @JsonProperty("negotiable")
+    private Boolean negotiable = null;
 
     public RentalItemPrice value(BigDecimal value) {
         this.value = value;
@@ -26,7 +28,7 @@ public class RentalItemPrice {
 
     /**
      * Get value
-     *
+     * 
      * @return value
      **/
     @ApiModelProperty(value = "")
@@ -41,30 +43,28 @@ public class RentalItemPrice {
         this.value = value;
     }
 
-    public RentalItemPrice type(Boolean type) {
-        this.type = type;
+    public RentalItemPrice negotiable(Boolean negotiable) {
+        this.negotiable = negotiable;
         return this;
     }
 
     /**
-     * Get type
-     *
-     * @return type
+     * Get negotiable
+     * 
+     * @return negotiable
      **/
     @ApiModelProperty(value = "")
 
-
-    public Boolean getType() {
-        return type;
+    public Boolean getNegotiable() {
+        return negotiable;
     }
 
-    public void setType(Boolean type) {
-        this.type = type;
+    public void setNegotiable(Boolean negotiable) {
+        this.negotiable = negotiable;
     }
-
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(java.lang.Object o) {
         if (this == o) {
             return true;
         }
@@ -72,13 +72,13 @@ public class RentalItemPrice {
             return false;
         }
         RentalItemPrice rentalItemPrice = (RentalItemPrice) o;
-        return Objects.equals(this.value, rentalItemPrice.value) &&
-                Objects.equals(this.type, rentalItemPrice.type);
+        return Objects.equals(this.value, rentalItemPrice.value)
+                && Objects.equals(this.negotiable, rentalItemPrice.negotiable);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(value, type);
+        return Objects.hash(value, negotiable);
     }
 
     @Override
@@ -87,7 +87,7 @@ public class RentalItemPrice {
         sb.append("class RentalItemPrice {\n");
 
         sb.append("    value: ").append(toIndentedString(value)).append("\n");
-        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    negotiable: ").append(toIndentedString(negotiable)).append("\n");
         sb.append("}");
         return sb.toString();
     }
@@ -96,11 +96,10 @@ public class RentalItemPrice {
      * Convert the given object to string with each line indented by 4 spaces
      * (except the first line).
      */
-    private String toIndentedString(Object o) {
+    private String toIndentedString(java.lang.Object o) {
         if (o == null) {
             return "null";
         }
         return o.toString().replace("\n", "\n    ");
     }
 }
-

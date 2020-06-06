@@ -1,9 +1,9 @@
 sourceSets {
     integrationTest {
-        java {
+        groovy {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDir file('src/integrationTest/java')
+            srcDirs = ['src/integrationTest/groovy']
         }
         resources.srcDir file('src/integrationTest/resources')
     }
@@ -15,7 +15,7 @@ configurations {
 }
 
 task integrationTest(type: Test) {
-    testClassesDir = sourceSets.integrationTest.output.classesDir
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
 
     reports.html.destination = file("${reporting.baseDir}/${name}")

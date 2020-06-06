@@ -1,16 +1,11 @@
 package org.emela.chautari.mapper;
 
-
 import org.emela.chautari.domain.UserEntity;
 import org.emela.chautari.model.UserAccountDetail;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(
-        componentModel = "spring",
-        nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT,
-        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT
-)
+@Mapper(componentModel = "spring", nullValueMappingStrategy = NullValueMappingStrategy.RETURN_DEFAULT, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_DEFAULT)
 public interface UserEntityMapper extends BaseMapper {
 
     UserEntityMapper INSTANCE = Mappers.getMapper(UserEntityMapper.class);
