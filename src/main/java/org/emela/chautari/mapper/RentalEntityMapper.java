@@ -1,17 +1,14 @@
 package org.emela.chautari.mapper;
 
 import org.emela.chautari.domain.RentalEntity;
+import org.emela.chautari.model.RentalItemDetail;
 import org.emela.chautari.model.RentalItemRequest;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.Named;
 import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
-
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Mapper(
         componentModel = "spring",
@@ -22,6 +19,7 @@ public interface RentalEntityMapper extends BaseMapper {
 
     RentalEntityMapper INSTANCE = Mappers.getMapper(RentalEntityMapper.class);
 
+    @Mapping(target = "status", ignore = true)
     @Mapping(target = "lastUpdatedUser", ignore = true)
     @Mapping(target = "lastUpdatedOn", ignore = true)
     @Mapping(target = "user", ignore = true)
@@ -36,7 +34,6 @@ public interface RentalEntityMapper extends BaseMapper {
     @Mapping(target = "preferences", ignore = true)
     @Mapping(target = "price", source = "price.value")
     @Mapping(target = "negotiable", source = "price.negotiable")
-    @Mapping(target = "postedOn", qualifiedByName = "convertZonedDateTime")
     RentalEntity mapToRentalEntity(RentalItemRequest rentalItemRequest);
 
     @InheritInverseConfiguration
@@ -47,11 +44,14 @@ public interface RentalEntityMapper extends BaseMapper {
     RentalItemRequest mapToRentalItemRequest(RentalEntity rentalEntity);
 
 
-    @Named("convertZonedDateTime")
-    default ZonedDateTime convertZonedDateTime(RentalItemRequest rentalItemRequest) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
-        return ZonedDateTime.parse(rentalItemRequest.getPostedOn(), dateTimeFormatter);
-    }
+    @Mapping(target = "availability", ignore = true)
+    @Mapping(target = "features", ignore = true)
+    @Mapping(target = "location", ignore = true)
+    @Mapping(target = "imageIds", ignore = true)
+    @Mapping(target = "viewedBy", ignore = true)
+    @Mapping(target = "postedBy", source = "user")
+    @Mapping(target = "price.value", source = "price", numberFormat = "#.00")
+    RentalItemDetail mapToRentalItemDetail(RentalEntity rentalEntity);
 
 
 }

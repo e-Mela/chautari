@@ -17,7 +17,7 @@ class RentalAvailabilityServiceImplSpec extends Specification {
     def subject
 
     AvailabilityEntity availabilityEntity;
-    List<AvailabilityEntity> availabilityEntities  = new ArrayList<>()
+    List<AvailabilityEntity> availabilityEntities = new ArrayList<>()
     AvailabilityEntityRepository availabilityEntityRepository
 
     def setup() {
@@ -27,13 +27,15 @@ class RentalAvailabilityServiceImplSpec extends Specification {
     def 'createRentalItemAvailabilityEntity should convert Availability to availabilityEntity and save to database'() {
 
         given: 'costumer select availability of rental item'
-        def availabilities = [
-                new Availability().available(true).setDuration(
-                        new Duration().startDate(OffsetDateTime.parse("2020-01-02T10:15:30+01:00"))
-                                .endDate(OffsetDateTime.parse("2020-07-02T10:15:30+01:00"))),
-                new Availability().available(false).setDuration(
-                        new Duration().startDate(OffsetDateTime.parse("2020-03-02T10:15:30+01:00"))
-                                .endDate(OffsetDateTime.parse("2020-04-02T10:15:30+01:00")))]
+        List<Availability> availabilities = new ArrayList<>()
+        Availability availability = new Availability().available(true).duration(
+                new Duration().startDate(OffsetDateTime.parse("2020-01-02T10:15:30+01:00"))
+                        .endDate(OffsetDateTime.parse("2020-07-02T10:15:30+01:00")))
+        Availability availability1 = new Availability().available(false).duration(
+                new Duration().startDate(OffsetDateTime.parse("2020-03-02T10:15:30+01:00"))
+                        .endDate(OffsetDateTime.parse("2020-04-02T10:15:30+01:00")))
+        availabilities.add(availability)
+        availabilities.add(availability1)
 
         RentalEntity rentalEntity = new RentalEntity()
 
@@ -44,15 +46,16 @@ class RentalAvailabilityServiceImplSpec extends Specification {
         2 * subject.availabilityEntityRepository.save(_ as AvailabilityEntity) >> { arguments ->
             availabilityEntity = arguments[0] as AvailabilityEntity
             availabilityEntities.add(availabilityEntity as AvailabilityEntity)
+            availabilityEntity
         }
 
         availabilityEntities.size() == 2
 
-        availabilityEntities.get(0).getStartDate() == OffsetDateTime.parse("2020-01-02T10:15:30+01:00")
-        availabilityEntities.get(0).getEndDate() == OffsetDateTime.parse("2020-07-02T10:15:30+01:00")
+        availabilityEntities.get(0).getStartDate().toString() == "2020-01-02T10:15:30+01:00"
+        availabilityEntities.get(0).getEndDate().toString() == "2020-07-02T10:15:30+01:00"
         availabilityEntities.get(0).isAvailable()
-        availabilityEntities.get(1).getStartDate() == OffsetDateTime.parse("2020-03-02T10:15:30+01:00")
-        availabilityEntities.get(1).getStartDate() == OffsetDateTime.parse("2020-04-02T10:15:30+01:00")
+        availabilityEntities.get(1).getStartDate().toString() == "2020-03-02T10:15:30+01:00"
+        availabilityEntities.get(1).getEndDate().toString() == "2020-04-02T10:15:30+01:00"
         !availabilityEntities.get(1).isAvailable()
     }
 

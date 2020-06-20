@@ -23,13 +23,6 @@ public class GlobalExceptionHandler {
                 String.valueOf(HttpStatus.NOT_FOUND.value()), e), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value = ResourceNotFoundException.class)
-    public ResponseEntity<ErrorModel> handleCustomerIdException(Exception e) {
-        ErrorModel errorModel = buildErrorModel(HttpStatus.NOT_FOUND.name(),
-                HttpStatus.NOT_FOUND.getReasonPhrase(),
-                String.valueOf(HttpStatus.NOT_FOUND.value()), e);
-        return new ResponseEntity<>(errorModel, HttpStatus.NOT_FOUND);
-    }
 
     private ErrorModel buildErrorModel(String developerMessage, String userMessage, String errorCode, Exception e) {
         ErrorModel errorModel = new ErrorModel();

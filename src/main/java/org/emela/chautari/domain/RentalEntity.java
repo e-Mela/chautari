@@ -1,16 +1,20 @@
 package org.emela.chautari.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +22,7 @@ import java.util.UUID;
 @Data
 @Entity(name = "rental")
 @NoArgsConstructor
-public class RentalEntity {
+public class RentalEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -37,6 +41,8 @@ public class RentalEntity {
     private String title;
 
     private String rentOf;
+
+    private RentalItemStatus status;
 
     @OneToMany(cascade = CascadeType.ALL, targetEntity = AvailabilityEntity.class, mappedBy = "rentalEntity")
     private List<AvailabilityEntity> availabilityEntity;
@@ -60,17 +66,5 @@ public class RentalEntity {
     @OneToMany
     @JoinColumn(name = "resourceId")
     private List<ResourceEntity> resources;
-
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdOn;
-
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdatedOn;
-
-    private String createdUser;
-
-    private String lastUpdatedUser;
 
 }

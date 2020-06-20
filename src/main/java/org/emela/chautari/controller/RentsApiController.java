@@ -44,13 +44,14 @@ public class RentsApiController implements RentsApi {
 
     @Override
     public ResponseEntity<RentalItemDetail> getRentalItems(String rentalId) {
-        return ResponseEntity.ok(rentalService.getRentalItems(rentalId));
+        return ResponseEntity.ok(rentalService.getRentalItemDetail(rentalId));
     }
 
     @Override
     public ResponseEntity<List<RentalItemSummary>> getRentals(@Valid String title, @Valid String location,
             @Valid String type, @Valid String availability, @Valid String feature, @Valid String preference) {
-        return null;
+        return ResponseEntity.ok(rentalService.getRentalItems(title, location, type, availability, feature,
+                preference));
     }
 
     @Override
@@ -67,6 +68,6 @@ public class RentsApiController implements RentsApi {
     @Override
     public ResponseEntity<RentalItemResponse> updateRental(String rentalId,
             @Valid RentalItemRequest rentalItemRequest) {
-        return null;
+        return ResponseEntity.ok(rentalService.updateRental(rentalId, rentalItemRequest));
     }
 }

@@ -5,7 +5,7 @@ import org.emela.chautari.model.Availability
 import org.emela.chautari.model.Duration
 import spock.lang.Specification
 
-import java.time.OffsetDateTime
+import static java.time.OffsetDateTime.parse
 
 class AvailabilityEntityMapperSpec extends Specification {
 
@@ -16,12 +16,12 @@ class AvailabilityEntityMapperSpec extends Specification {
         Availability available = new Availability()
                 .duration(
                         new Duration()
-                                .startDate(OffsetDateTime.parse("2020-05-03T10:15:30+01:00"))
-                                .endDate(OffsetDateTime.parse("2020-05-03T10:15:30+01:00")))
+                                .startDate(parse("2020-05-03T10:15:30+01:00"))
+                                .endDate(parse("2020-05-03T10:15:30+01:00")))
                 .available(true)
 
         when:
-        def result = mapper.mapToAvailabilityEntity()
+        def result = mapper.mapToAvailabilityEntity(available)
 
         then:
         result != null
@@ -33,15 +33,17 @@ class AvailabilityEntityMapperSpec extends Specification {
     def 'mapToAvailability should convert availabilityEntity to availability'() {
         given:
         AvailabilityEntity entity = new AvailabilityEntity()
-        entity.setAvailable(true)
-        entity.startDate(OffsetDateTime.parse("2020-05-03T10:15:30+01:00"))
+        entity.setAvailable(false)
+        entity.setStartDate(parse("2020-05-03T10:15:30+01:00"))
+        entity.setEndDate(parse("2020-07-03T10:15:30+01:00"))
 
         when:
-        def result = mapper.mapToFeature(entity)
+        def result = mapper.mapToAvailability(entity)
 
         then:
         result != null
-        result.getAvailable()
-        result.getFeature() == "Baby Yoda has power"
+        !result.getAvailable()
+        result.getDuration().getStartDate() == entity.getStartDate()
+        result.getDuration().getEndDate() == entity.getEndDate()
     }
 }

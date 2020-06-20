@@ -3,6 +3,7 @@ package org.emela.chautari.service
 import org.emela.chautari.domain.FeatureEntity
 import org.emela.chautari.domain.PreferenceEntity
 import org.emela.chautari.domain.Priority
+import org.emela.chautari.domain.RentalEntity
 import org.emela.chautari.domain.UserEntity
 import org.emela.chautari.mapper.FeatureEntityMapper
 import org.emela.chautari.mapper.PreferenceEntityMapper
@@ -22,18 +23,18 @@ class RentalPreferenceServiceImplSpec extends Specification {
         subject = new RentalPreferenceServiceImpl(Mock(PreferenceEntityRepository.class), PreferenceEntityMapper.INSTANCE)
     }
 
-    def 'createRentalItemFeatureEntity should convert preference to preference entity and save to database'() {
+    def 'createRentalItemPreferenceEntity should convert preference to preference entity and save to database'() {
         given:
-        def user = new UserEntity()
+        def rental = new RentalEntity()
         ArrayList preferences = new ArrayList()
         preferences.add(new RentalItemPreference().preference('Baby Yoda').priority(RentalItemPreference.PriorityEnum.HIGH))
 
         when:
-        subject.createRentalItemPreferenceEntity(preferences as List, user as UserEntity)
+        subject.createRentalItemPreferenceEntity(preferences as List, rental as RentalEntity)
 
         then:
         1 * subject.preferenceEntityRepository.save(_ as PreferenceEntity) >> { arguments -> preferenceEntity = arguments[0] }
-        preferenceEntity instanceof FeatureEntity
+        preferenceEntity instanceof PreferenceEntity
         preferenceEntity != null
         preferenceEntity.getPreference() == 'Baby Yoda'
         preferenceEntity.getPriority() == Priority.HIGH
