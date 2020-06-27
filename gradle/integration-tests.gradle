@@ -1,9 +1,9 @@
 sourceSets {
     integrationTest {
-        groovy {
+         java {
             compileClasspath += main.output + test.output
             runtimeClasspath += main.output + test.output
-            srcDirs = ['src/integrationTest/groovy']
+            srcDir file('src/integrationTest/groovy')
         }
         resources.srcDir file('src/integrationTest/resources')
     }
@@ -12,9 +12,16 @@ sourceSets {
 configurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime
+    integrationTests
+}
+task extractIntegrationTests(type: Copy, dependsOn: configurations.integrationTests) {
+    from {
+        configurations.integrationTests.collect { zipTree(it) }
+    }
+    into "${sourceSets.integrationTest.output.resourcesDir}/integration-tests"
 }
 
-task integrationTest(type: Test) {
+task integrationTest(type: Test, dependsOn: extractIntegrationTests) {
     testClassesDirs = sourceSets.integrationTest.output.classesDirs
     classpath = sourceSets.integrationTest.runtimeClasspath
 

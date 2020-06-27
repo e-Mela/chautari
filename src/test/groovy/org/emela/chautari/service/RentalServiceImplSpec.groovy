@@ -59,8 +59,10 @@ class RentalServiceImplSpec extends Specification {
         def rentalEntityLocal = new RentalEntity()
         UUID rentalId = UUID.randomUUID()
         rentalEntityLocal.setRentalId(rentalId)
-        1 * subject.rentalEntityRepository.save(_ as RentalEntity) >> {throw new HibernateException ("Can't save the " +
-                "entity")}
+        1 * subject.rentalEntityRepository.save(_ as RentalEntity) >> {
+            throw new HibernateException("Can't save the " +
+                    "entity")
+        }
         when:
         subject.createRental(rentalItemRequest)
 
@@ -93,8 +95,10 @@ class RentalServiceImplSpec extends Specification {
         UUID rentalId = UUID.randomUUID()
         rentalEntityLocal.setRentalId(rentalId)
         subject.rentalEntityRepository.findByRentalId(_) >> Optional.of(rentalEntityLocal)
-        subject.rentalEntityRepository.delete(_) >> { throw new HibernateException ("Can't delete the " +
-                "entity")}
+        subject.rentalEntityRepository.delete(_) >> {
+            throw new HibernateException("Can't delete the " +
+                    "entity")
+        }
 
         when:
         def response = subject.deleteRental(rentalId.toString())
@@ -144,8 +148,10 @@ class RentalServiceImplSpec extends Specification {
         UUID rentalId = UUID.randomUUID()
         rentalEntityLocal.setRentalId(rentalId)
         subject.rentalEntityRepository.findByRentalId(_) >> Optional.of(rentalEntityLocal)
-        subject.rentalEntityRepository.save(_ as RentalEntity) >> {throw new HibernateException ("Can't update the " +
-                "entity")}
+        subject.rentalEntityRepository.save(_ as RentalEntity) >> {
+            throw new HibernateException("Can't update the " +
+                    "entity")
+        }
 
         when:
         def response = subject.updateRental(rentalId.toString(), rentalItemRequest)

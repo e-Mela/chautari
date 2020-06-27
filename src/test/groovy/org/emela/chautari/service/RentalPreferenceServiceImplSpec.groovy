@@ -1,16 +1,12 @@
 package org.emela.chautari.service
 
-import org.emela.chautari.domain.FeatureEntity
+
 import org.emela.chautari.domain.PreferenceEntity
 import org.emela.chautari.domain.Priority
 import org.emela.chautari.domain.RentalEntity
-import org.emela.chautari.domain.UserEntity
-import org.emela.chautari.mapper.FeatureEntityMapper
 import org.emela.chautari.mapper.PreferenceEntityMapper
 import org.emela.chautari.model.RentalItemPreference
-import org.emela.chautari.repository.FeatureEntityRepository
 import org.emela.chautari.repository.PreferenceEntityRepository
-import org.emela.chautari.service.impl.RentalFeatureServiceImpl
 import org.emela.chautari.service.impl.RentalPreferenceServiceImpl
 import spock.lang.Specification
 

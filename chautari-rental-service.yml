@@ -921,7 +921,6 @@ components:
           type: string
     RentalItemRequest:
       type: object
-      required:
       properties:
         user-id:
           type: string

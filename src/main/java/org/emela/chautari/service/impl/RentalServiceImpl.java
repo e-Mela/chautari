@@ -117,7 +117,7 @@ public class RentalServiceImpl implements RentalService {
             newRentalEntity.setId(existingRentalEntity.getId());
             savedRentalEntity = rentalEntityRepository.save(newRentalEntity);
             mapAndSaveRentalAssociatedEntity(rentalItemRequest, savedRentalEntity);
-        }catch (Exception exception){
+        } catch (Exception exception) {
             log.error("UPDATE rental Item failed", exception);
             throw new RentalServiceException(exception);
         }

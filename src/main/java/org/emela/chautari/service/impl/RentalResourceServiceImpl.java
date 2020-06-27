@@ -9,7 +9,7 @@ public class RentalResourceServiceImpl implements RentalResourceService {
 
     private final ResourceEntityRepository resourceEntityRepository;
 
-    public RentalResourceServiceImpl(final ResourceEntityRepository resourceEntityRepository){
-        this.resourceEntityRepository=resourceEntityRepository;
+    public RentalResourceServiceImpl(final ResourceEntityRepository resourceEntityRepository) {
+        this.resourceEntityRepository = resourceEntityRepository;
     }
 }

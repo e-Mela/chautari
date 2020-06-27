@@ -1,0 +1,89 @@
+{
+  "provider": {
+    "name": "InvoiceServiceProvider"
+  },
+  "consumer": {
+    "name": "InvoiceServiceConsumer"
+  },
+  "interactions": [
+    {
+      "provider_state": "200 Success",
+      "description": "Create Rental Item - 200 Success",
+      "request": {
+        "method": "POST",
+        "path": "/rents",
+        "headers": {
+          "content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "user-id": "49a0e5bb-5eb3-4c61-aee6-8d9bde483f79",
+          "title": "Luxurious apartment",
+          "rentOf": "ROOM",
+          "availability": [
+            {
+              "duration": {
+                "start-date": "2020-01-23T10:07:43.000-400",
+                "end-date": "2020-03-23T10:07:43.000-400"
+              },
+              "available": "true"
+            }
+          ],
+          "location": {
+            "address1": "5312 Amity Moor Room",
+            "address2": "",
+            "city": "Westerville",
+            "state": "OH",
+            "country": "US",
+            "zip": "43081"
+          },
+          "price": {
+            "value": "12.23",
+            "negotiable": "false"
+          },
+          "preferences": [
+            {
+              "preference": "Hot girl only",
+              "priority": "high"
+            },
+            {
+              "preference": "Pubg player",
+              "priority": "Low"
+            }
+          ],
+          "features": [
+            {
+              "feature": "Washer & Dryer included",
+              "available": "true"
+            },
+            {
+              "feature": "AC & Heater included",
+              "available": "false"
+            }
+          ],
+          "postedOn": "2020-01-23T10:07:43.000-400",
+          "image-ids": [
+            "49a0e5bb-5eb3-4c61-aee6-8d9bde483429",
+            "49a0e5bb-5eb3-4c61-aee6-8d9bde483f23"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-Type": "application/json;charset=UTF-8"
+        },
+        "body": {
+          "rental-id": "000000-5eb3-4c61-aee6-8d9bde489999"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.1.1"
+    }
+  }
+}

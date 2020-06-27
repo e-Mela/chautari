@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface RentalEntityRepository extends JpaRepository<RentalEntity, Long> {
 
-    Optional<RentalEntity>  findByRentalId(UUID rentalId);
+    Optional<RentalEntity> findByRentalId(UUID rentalId);
 
 }

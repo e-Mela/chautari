@@ -27,7 +27,7 @@ public class RentalPreferenceServiceImpl implements RentalPreferenceService {
 
     @Override
     public List<PreferenceEntity> createRentalItemPreferenceEntity(List<RentalItemPreference> preferenceList,
-                                                                   RentalEntity  rentalEntity){
+                                                                   RentalEntity rentalEntity) {
         List<PreferenceEntity> preferenceEntities = new ArrayList<>();
         preferenceList.forEach(rentalItemPreference -> {
             PreferenceEntity preferenceEntity = preferenceEntityMapper.mapToPreferenceEntity(rentalItemPreference);

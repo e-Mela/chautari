@@ -1,0 +1,119 @@
+{
+  "provider": {
+    "name": "InvoiceServiceProvider"
+  },
+  "consumer": {
+    "name": "InvoiceServiceConsumer"
+  },
+  "interactions": [
+    {
+      "provider_state": "200 Success",
+      "description": "Delete Rental Item - 200 Success",
+      "request": {
+        "method": "GET",
+        "path": "/rents/11111-5eb3-4c61-aee6-8d9bde489999",
+        "headers": {
+          "content-Type": "application/json; charset=UTF-8"
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-Type": "application/json;charset=UTF-8"
+        },
+        "body": {
+          "title": "string",
+          "rentOf": "room",
+          "viewedBy": 0,
+          "status": "New",
+          "availability": [
+            {
+              "duration": {
+                "start-date": "2020-06-27T13:37:48.665Z",
+                "end-date": "2020-06-27T13:37:48.665Z"
+              },
+              "available": true
+            }
+          ],
+          "location": {
+            "address1": "string",
+            "address2": "string",
+            "city": "string",
+            "state": "string",
+            "country": "string",
+            "zip": 0
+          },
+          "price": {
+            "value": 0,
+            "negotiable": true
+          },
+          "preferences": [
+            {
+              "preference": "string",
+              "priority": "high"
+            }
+          ],
+          "features": {
+            "available": [
+              "string"
+            ],
+            "not-available": [
+              "string"
+            ]
+          },
+          "postedBy": {
+            "person": {
+              "title": "Mr",
+              "firstName": "string",
+              "middleName": "string",
+              "lastName": "string"
+            },
+            "address": {
+              "address1": "string",
+              "address2": "string",
+              "city": "string",
+              "state": "string",
+              "country": "string",
+              "zip": 0
+            }
+          },
+          "postedOn": "string",
+          "image-ids": [
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+          ]
+        }
+      }
+    },
+    {
+      "provider_state": "404 Not Found",
+      "description": "Get Rental Item - 404 Not Found",
+      "request": {
+        "method": "GET",
+        "path": "/rents/invalid-rental-id",
+        "headers": {
+          "content-Type": "application/json; charset=UTF-8"
+        }
+      },
+      "response": {
+        "status": 404,
+        "headers": {
+          "content-Type": "application/json;charset=UTF-8"
+        },
+        "body": {
+          "developerMessage": "Not Found",
+          "userMessage": "Resource not found",
+          "errorCode": "404",
+          "moreInfo": "Requested resource not found"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.1.1"
+    }
+  }
+}

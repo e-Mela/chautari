@@ -12,6 +12,7 @@ ext {
 }
 
 apply from: "gradle/integration-tests.gradle"
+apply from: "gradle/contract-tests.gradle"
 
 group = 'org.emela'
 version = '0.0.1-SNAPSHOT'

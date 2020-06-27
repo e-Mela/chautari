@@ -27,7 +27,7 @@ task extractContractTests(type: Copy, dependsOn: configurations.contractTests) {
 }
 
 task contractTest(type: Test, dependsOn: extractContractTests) {
-    testClassesDir = sourceSets.contractTest.output.classesDir
+    testClassesDirs = sourceSets.contractTest.output.classesDirs
     classpath = sourceSets.contractTest.runtimeClasspath
 
     reports.html.destination = file("${reporting.baseDir}/${name}")
@@ -38,5 +38,3 @@ idea {
         scopes.TEST.plus += [configurations.contractTestCompile]
     }
 }
-
-eclipse.classpath.plusConfigurations << configurations.contractTestCompile

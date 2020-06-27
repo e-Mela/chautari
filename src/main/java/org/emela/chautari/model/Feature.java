@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 /**
  * Feature
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-30T08:26:52.369-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-31T10:46:01.641-04:00[America/New_York]")
 
 public class Feature   {
   @JsonProperty("feature")
