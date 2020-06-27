@@ -41,7 +41,7 @@ public class RentalServiceIntegrationTest {
     @Test
     public void testCreateRentalItem() throws Exception {
         String fileName = "input/create-rental-item-request.json";
-        String requestJson = ChautariUtils.getStringPayloadFromObject(ChautariUtils.prepareRentalItemRequest(fileName));
+//        String requestJson = ChautariUtils.getStringPayloadFromObject(ChautariUtils.prepareRentalItemRequest(fileName));
 //        this.mockMvc.perform(post("/rents"))
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .content(requestJson))
