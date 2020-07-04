@@ -18,8 +18,7 @@ class RentalServiceImplSpec extends Specification {
     def setup() {
 
         subject = new RentalServiceImpl(Mock(RentalEntityRepository), Mock(RentalAvailabilityService),
-                Mock(RentalFeatureService), Mock(RentalPreferenceService), RentalEntityMapper.INSTANCE,
-                Mock(AddressService), Mock(UserService))
+                Mock(RentalFeatureService), Mock(RentalPreferenceService), RentalEntityMapper.INSTANCE, Mock(UserService))
     }
 
 

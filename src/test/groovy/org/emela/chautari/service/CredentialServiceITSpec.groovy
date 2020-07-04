@@ -12,7 +12,7 @@ import spock.lang.Specification
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.NONE
 
 @SpringBootTest(webEnvironment = NONE)
-class CredentialServiceImplITSpec extends Specification {
+class CredentialServiceITSpec extends Specification {
 
     @Autowired
     private CredentialService credentialService

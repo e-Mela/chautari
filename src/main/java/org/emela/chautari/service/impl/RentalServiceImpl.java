@@ -40,7 +40,7 @@ public class RentalServiceImpl implements RentalService {
                              final RentalFeatureService rentalFeatureService,
                              final RentalPreferenceService rentalPreferenceService,
                              final RentalEntityMapper rentalEntityMapper,
-                             //final AddressService addressService,
+//                             final AddressService addressService,
                              final UserService userService) {
         this.rentalEntityRepository = rentalEntityRepository;
         this.rentalAvailabilityService = rentalAvailabilityService;
