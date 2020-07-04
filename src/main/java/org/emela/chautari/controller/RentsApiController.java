@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -50,7 +49,7 @@ public class RentsApiController implements RentsApi {
 
     @Override
     public ResponseEntity<List<RentalItemSummary>> getRentals(@Valid String title, @Valid String location,
-            @Valid String type, @Valid String availability, @Valid String feature, @Valid String preference) {
+                                                              @Valid String type, @Valid String availability, @Valid String feature, @Valid String preference) {
         return ResponseEntity.ok(rentalService.getRentalItems(title, location, type, availability, feature,
                 preference));
     }
@@ -62,13 +61,13 @@ public class RentsApiController implements RentsApi {
 
     @Override
     public ResponseEntity<List<ResourceResponse>> resourceUpload(String userId, String rentalId,
-            @Valid MultipartFile file) {
+                                                                 @Valid MultipartFile file) {
         return null;
     }
 
     @Override
     public ResponseEntity<RentalItemResponse> updateRental(String rentalId,
-            @Valid RentalItemRequest rentalItemRequest) {
+                                                           @Valid RentalItemRequest rentalItemRequest) {
         return ResponseEntity.ok(rentalService.updateRental(rentalId, rentalItemRequest));
     }
 }

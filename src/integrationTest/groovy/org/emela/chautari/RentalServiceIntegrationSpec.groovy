@@ -17,21 +17,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@SpringBootTest(classes = ChautariApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = ChautariApplication, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
 @Log4j2
 @TestPropertySource(locations = "classpath:integration-test.properties")
 class RentalServiceIntegrationSpec extends Specification {
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc
 
 
     def 'test chautari application health'() {
         given:
         String expectResponse = "{\n" +
                 "    \"status\": \"UP\"\n" +
-                "}";
+                "}"
         when:
         def response = this.mockMvc.perform(get("/chautari-health"))
                 .andDo(print())
@@ -66,11 +66,11 @@ class RentalServiceIntegrationSpec extends Specification {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestJson)).andReturn()
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        RentalItemResponse rentalItemResponse = objectMapper.readValue(response.getResponse().getContentAsString(), RentalItemResponse.class);
+        ObjectMapper objectMapper = new ObjectMapper()
+        RentalItemResponse rentalItemResponse = objectMapper.readValue(response.getResponse().getContentAsString(), RentalItemResponse.class)
 
         when:
-        def getResponse = this.mockMvc.perform(get("/chautari/rents/" + rentalItemResponse.getRentalId())
+        def getResponse = this.mockMvc.perform(get("/chautari/rents/" + rentalItemResponse.rentalId)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isOk())

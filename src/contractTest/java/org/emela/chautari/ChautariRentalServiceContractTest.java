@@ -38,6 +38,7 @@ public class ChautariRentalServiceContractTest {
 
     @State(RENTAL_SERVICE_STATE_SUCCESS)
     public void testSuccess() {
+        //This method starts contract tests
     }
 
 
