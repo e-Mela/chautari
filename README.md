@@ -1,4 +1,3 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dcfb96a202a4457ebe04536672214beb)](https://app.codacy.com/gh/e-Mela/chautari?utm_source=github.com&utm_medium=referral&utm_content=e-Mela/chautari&utm_campaign=Badge_Grade_Dashboard)
 ## Chautari Rental Service [![Codacy Badge](https://app.codacy.com/project/badge/Grade/740ffa146ca14e848e0f6d3e4ddc79a7)](https://www.codacy.com/gh/e-Mela/chautari?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=e-Mela/chautari&amp;utm_campaign=Badge_Grade)
 This is a rental platform back-end application.
 
