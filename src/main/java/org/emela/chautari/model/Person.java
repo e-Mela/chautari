@@ -1,188 +1,188 @@
 package org.emela.chautari.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModelProperty;
-import org.springframework.validation.annotation.Validated;
-
 import java.util.Objects;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 
 /**
  * Person
  */
-@Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-05-30T14:41:07.663793-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-31T10:46:01.641-04:00[America/New_York]")
 
-public class Person {
-    @JsonProperty("title")
-    private TitleEnum title = TitleEnum.MR;
-    @JsonProperty("firstName")
-    private String firstName = null;
-    @JsonProperty("middleName")
-    private String middleName = null;
-    @JsonProperty("lastName")
-    private String lastName = null;
+public class Person   {
+  /**
+   * Gets or Sets title
+   */
+  public enum TitleEnum {
+    MS("Ms"),
+    
+    MR("Mr"),
+    
+    MISS("Miss");
 
-    public Person title(TitleEnum title) {
-        this.title = title;
-        return this;
-    }
+    private String value;
 
-    /**
-     * Get title
-     *
-     * @return title
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public TitleEnum getTitle() {
-        return title;
-    }
-
-    public void setTitle(TitleEnum title) {
-        this.title = title;
-    }
-
-    public Person firstName(String firstName) {
-        this.firstName = firstName;
-        return this;
-    }
-
-    /**
-     * Get firstName
-     *
-     * @return firstName
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Person middleName(String middleName) {
-        this.middleName = middleName;
-        return this;
-    }
-
-    /**
-     * Get middleName
-     *
-     * @return middleName
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
-    }
-
-    public Person lastName(String lastName) {
-        this.lastName = lastName;
-        return this;
-    }
-
-    /**
-     * Get lastName
-     *
-     * @return lastName
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    TitleEnum(String value) {
+      this.value = value;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Person person = (Person) o;
-        return Objects.equals(this.title, person.title) &&
-                Objects.equals(this.firstName, person.firstName) &&
-                Objects.equals(this.middleName, person.middleName) &&
-                Objects.equals(this.lastName, person.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(title, firstName, middleName, lastName);
-    }
-
-    @Override
+    @JsonValue
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("class Person {\n");
-
-        sb.append("    title: ").append(toIndentedString(title)).append("\n");
-        sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
-        sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
-        sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
-        sb.append("}");
-        return sb.toString();
+      return String.valueOf(value);
     }
 
-    /**
-     * Convert the given object to string with each line indented by 4 spaces
-     * (except the first line).
-     */
-    private String toIndentedString(Object o) {
-        if (o == null) {
-            return "null";
+    @JsonCreator
+    public static TitleEnum fromValue(String text) {
+      for (TitleEnum b : TitleEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
         }
-        return o.toString().replace("\n", "\n    ");
+      }
+      throw new IllegalArgumentException("Unexpected value '" + text + "'");
     }
+  }
 
-    /**
-     * Gets or Sets title
-     */
-    public enum TitleEnum {
-        MS("Ms"),
+  @JsonProperty("title")
+  private TitleEnum title = TitleEnum.MR;
 
-        MR("Mr"),
+  @JsonProperty("firstName")
+  private String firstName = null;
 
-        MISS("Miss");
+  @JsonProperty("middleName")
+  private String middleName = null;
 
-        private String value;
+  @JsonProperty("lastName")
+  private String lastName = null;
 
-        TitleEnum(String value) {
-            this.value = value;
-        }
+  public Person title(TitleEnum title) {
+    this.title = title;
+    return this;
+  }
 
-        @JsonCreator
-        public static TitleEnum fromValue(String text) {
-            for (TitleEnum b : TitleEnum.values()) {
-                if (String.valueOf(b.value).equals(text)) {
-                    return b;
-                }
-            }
-            return null;
-        }
+  /**
+   * Get title
+   * @return title
+  **/
+  @ApiModelProperty(value = "")
 
-        @Override
-        @JsonValue
-        public String toString() {
-            return String.valueOf(value);
-        }
+
+  public TitleEnum getTitle() {
+    return title;
+  }
+
+  public void setTitle(TitleEnum title) {
+    this.title = title;
+  }
+
+  public Person firstName(String firstName) {
+    this.firstName = firstName;
+    return this;
+  }
+
+  /**
+   * Get firstName
+   * @return firstName
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public Person middleName(String middleName) {
+    this.middleName = middleName;
+    return this;
+  }
+
+  /**
+   * Get middleName
+   * @return middleName
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getMiddleName() {
+    return middleName;
+  }
+
+  public void setMiddleName(String middleName) {
+    this.middleName = middleName;
+  }
+
+  public Person lastName(String lastName) {
+    this.lastName = lastName;
+    return this;
+  }
+
+  /**
+   * Get lastName
+   * @return lastName
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    Person person = (Person) o;
+    return Objects.equals(this.title, person.title) &&
+        Objects.equals(this.firstName, person.firstName) &&
+        Objects.equals(this.middleName, person.middleName) &&
+        Objects.equals(this.lastName, person.lastName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(title, firstName, middleName, lastName);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class Person {\n");
+    
+    sb.append("    title: ").append(toIndentedString(title)).append("\n");
+    sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
+    sb.append("    middleName: ").append(toIndentedString(middleName)).append("\n");
+    sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(Object o) {
+    if (o == null) {
+      return "null";
+    }
+    return o.toString().replace("\n", "\n    ");
+  }
 }
 

@@ -1,9 +1,9 @@
 {
   "provider": {
-    "name": "InvoiceServiceProvider"
+    "name": "ChautariRentalServiceProvider"
   },
   "consumer": {
-    "name": "InvoiceServiceConsumer"
+    "name": "ChautariRentalServiceConsumer"
   },
   "interactions": [
     {
@@ -11,19 +11,19 @@
       "description": "Create Rental Item - 200 Success",
       "request": {
         "method": "POST",
-        "path": "/rents",
+        "path": "chautari/rents",
         "headers": {
-          "content-Type": "application/json; charset=UTF-8"
+          "content-Type": "application/json"
         },
         "body": {
           "user-id": "49a0e5bb-5eb3-4c61-aee6-8d9bde483f79",
-          "title": "Luxurious apartment",
-          "rentOf": "ROOM",
+          "title": "Room 101",
+          "rentOf": "room",
           "availability": [
             {
               "duration": {
-                "start-date": "2020-01-23T10:07:43.000-400",
-                "end-date": "2020-03-23T10:07:43.000-400"
+                "start-date": "2020-06-06T15:39:02.624+04:00",
+                "end-date": "2020-06-07T15:39:02.624+04:00"
               },
               "available": "true"
             }
@@ -31,7 +31,7 @@
           "location": {
             "address1": "5312 Amity Moor Room",
             "address2": "",
-            "city": "Westerville",
+            "city": "westerville",
             "state": "OH",
             "country": "US",
             "zip": "43081"
@@ -47,7 +47,7 @@
             },
             {
               "preference": "Pubg player",
-              "priority": "Low"
+              "priority": "low"
             }
           ],
           "features": [
@@ -60,7 +60,7 @@
               "available": "false"
             }
           ],
-          "postedOn": "2020-01-23T10:07:43.000-400",
+          "postedOn": "2020-06-06T15:39:02.624Z",
           "image-ids": [
             "49a0e5bb-5eb3-4c61-aee6-8d9bde483429",
             "49a0e5bb-5eb3-4c61-aee6-8d9bde483f23"
@@ -70,10 +70,7 @@
       "response": {
         "status": 200,
         "headers": {
-          "content-Type": "application/json;charset=UTF-8"
-        },
-        "body": {
-          "rental-id": "000000-5eb3-4c61-aee6-8d9bde489999"
+          "content-Type": "application/json"
         }
       }
     }

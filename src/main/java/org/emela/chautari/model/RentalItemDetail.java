@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.emela.chautari.model.Address;
 import org.emela.chautari.model.Availability;
-import org.emela.chautari.model.RentalItemDetailFeatures;
+import org.emela.chautari.model.Feature;
 import org.emela.chautari.model.RentalItemPreference;
 import org.emela.chautari.model.RentalItemPrice;
 import org.emela.chautari.model.UserDetail;
@@ -20,7 +20,7 @@ import javax.validation.constraints.*;
 /**
  * RentalItemDetail
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-06-27T09:23:19.665-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-07-04T06:50:43.911-04:00[America/New_York]")
 
 public class RentalItemDetail   {
   @JsonProperty("title")
@@ -112,7 +112,8 @@ public class RentalItemDetail   {
   private List<RentalItemPreference> preferences = null;
 
   @JsonProperty("features")
-  private RentalItemDetailFeatures features = null;
+  @Valid
+  private List<Feature> features = null;
 
   @JsonProperty("postedBy")
   private UserDetail postedBy = null;
@@ -306,8 +307,16 @@ public class RentalItemDetail   {
     this.preferences = preferences;
   }
 
-  public RentalItemDetail features(RentalItemDetailFeatures features) {
+  public RentalItemDetail features(List<Feature> features) {
     this.features = features;
+    return this;
+  }
+
+  public RentalItemDetail addFeaturesItem(Feature featuresItem) {
+    if (this.features == null) {
+      this.features = new ArrayList<>();
+    }
+    this.features.add(featuresItem);
     return this;
   }
 
@@ -319,11 +328,11 @@ public class RentalItemDetail   {
 
   @Valid
 
-  public RentalItemDetailFeatures getFeatures() {
+  public List<Feature> getFeatures() {
     return features;
   }
 
-  public void setFeatures(RentalItemDetailFeatures features) {
+  public void setFeatures(List<Feature> features) {
     this.features = features;
   }
 

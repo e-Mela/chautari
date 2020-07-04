@@ -9,4 +9,6 @@ import java.util.List;
 public interface RentalAvailabilityService {
 
      List<AvailabilityEntity> createRentalItemAvailabilityEntity(List<Availability> availabilities, RentalEntity rentalEntity);
+
+     List<Availability> getRentalItemAvailabilityDetail(List<AvailabilityEntity> availabilityEntities);
 }

@@ -3,6 +3,7 @@ package org.emela.chautari.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -33,7 +34,8 @@ public class RentalEntity extends BaseEntity {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    private UUID rentalId;
+    @Type(type="org.hibernate.type.UUIDCharType")
+    private UUID rentalId = UUID.randomUUID();
 
     @ManyToOne(fetch = FetchType.LAZY)
     private UserEntity user;

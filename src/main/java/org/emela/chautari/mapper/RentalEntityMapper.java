@@ -19,8 +19,8 @@ public interface RentalEntityMapper extends BaseMapper {
 
     RentalEntityMapper INSTANCE = Mappers.getMapper(RentalEntityMapper.class);
 
-    @Mapping(target = "status", ignore = true)
-    @Mapping(target = "lastUpdatedUser", ignore = true)
+    @Mapping(target = "status", constant = "NEW")
+    @Mapping(target = "lastUpdatedUser", source = "userId")
     @Mapping(target = "lastUpdatedOn", ignore = true)
     @Mapping(target = "user", ignore = true)
     @Mapping(target = "availabilityEntity", ignore = true)
@@ -28,7 +28,7 @@ public interface RentalEntityMapper extends BaseMapper {
     @Mapping(target = "rentalId", ignore = true)
     @Mapping(target = "location", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdUser", ignore = true)
+    @Mapping(target = "createdUser", source = "userId")
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "features", ignore = true)
     @Mapping(target = "preferences", ignore = true)
@@ -45,7 +45,6 @@ public interface RentalEntityMapper extends BaseMapper {
 
 
     @Mapping(target = "availability", ignore = true)
-    @Mapping(target = "features", ignore = true)
     @Mapping(target = "location", ignore = true)
     @Mapping(target = "imageIds", ignore = true)
     @Mapping(target = "viewedBy", ignore = true)

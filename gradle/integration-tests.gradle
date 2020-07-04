@@ -9,6 +9,10 @@ sourceSets {
     }
 }
 
+dependencies {
+    compile 'com.h2database:h2'
+}
+
 configurations {
     integrationTestCompile.extendsFrom testCompile
     integrationTestRuntime.extendsFrom testRuntime

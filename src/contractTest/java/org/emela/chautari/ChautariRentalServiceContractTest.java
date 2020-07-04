@@ -7,14 +7,12 @@ import au.com.dius.pact.provider.junit.loader.PactFolder;
 import au.com.dius.pact.provider.junit.target.HttpTarget;
 import au.com.dius.pact.provider.junit.target.Target;
 import au.com.dius.pact.provider.junit.target.TestTarget;
-import lombok.extern.log4j.Log4j2;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestContextManager;
 import org.springframework.test.context.TestPropertySource;
 
-@Log4j2
 @SpringBootTest(
         classes = {ChautariApplication.class},
         webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -40,7 +38,6 @@ public class ChautariRentalServiceContractTest {
 
     @State(RENTAL_SERVICE_STATE_SUCCESS)
     public void testSuccess() {
-        log.info("Now service in ::" + RENTAL_SERVICE_STATE_SUCCESS + ":: state");
     }
 
 

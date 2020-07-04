@@ -40,4 +40,14 @@ public class RentalAvailabilityServiceImpl implements RentalAvailabilityService 
         log.debug("Rental item availability has saved successfully for rental-id {} ", rentalEntity.getRentalId());
         return availabilityEntities;
     }
+
+    @Override
+    public List<Availability> getRentalItemAvailabilityDetail(List<AvailabilityEntity> availabilityEntities) {
+        List<Availability> rentalAvailabilities = new ArrayList<>();
+        availabilityEntities.forEach(availabilityEntity -> {
+            rentalAvailabilities.add(availabilityEntityMapper.mapToAvailability(availabilityEntity));
+
+        });
+        return rentalAvailabilities;
+    }
 }

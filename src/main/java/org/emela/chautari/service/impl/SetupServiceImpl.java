@@ -47,6 +47,7 @@ public class SetupServiceImpl implements SetupService {
 
     private void setupUserCredential(Credential credential, UserEntity userEntity) {
         CredentialEntity saveCredential = credentialServiceImpl.saveCredential(credential, userEntity);
-        credential.getSecurityQuestions().forEach(it -> securityQuestionServiceImpl.saveSecurityQuestion(it, saveCredential));
+        credential.getSecurityQuestions().forEach(it -> securityQuestionServiceImpl.saveSecurityQuestion(it,
+                saveCredential));
     }
 }

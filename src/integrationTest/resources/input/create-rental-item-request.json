@@ -1,12 +1,12 @@
 {
   "user-id": "49a0e5bb-5eb3-4c61-aee6-8d9bde483f79",
-  "title": "Luxarious apartment",
-  "rentOf": "ROOM",
+  "title": "Room 30004",
+  "rentOf": "room",
   "availability": [
     {
       "duration": {
-        "start-date": "2020-01-23T10:07:43.000-400",
-        "end-date": "2020-03-23T10:07:43.000-400"
+        "start-date": "2020-06-06T15:39:02.624+04:00",
+        "end-date": "2020-06-07T15:39:02.624+04:00"
       },
       "available": "true"
     }
@@ -30,7 +30,7 @@
     },
     {
       "preference": "Pubg player",
-      "priority": "Low"
+      "priority": "low"
     }
   ],
   "features": [
@@ -43,7 +43,7 @@
       "available": "false"
     }
   ],
-  "postedOn": "2020-01-23T10:07:43.000-400",
+  "postedOn": "2020-06-06T15:39:02.624Z",
   "image-ids": [
     "49a0e5bb-5eb3-4c61-aee6-8d9bde483429",
     "49a0e5bb-5eb3-4c61-aee6-8d9bde483f23"

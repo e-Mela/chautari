@@ -17,6 +17,7 @@ configurations {
 
 dependencies {
     contractTestCompile('au.com.dius:pact-jvm-provider-junit_2.11:3.2.3')
+    compile 'com.h2database:h2'
 }
 
 task extractContractTests(type: Copy, dependsOn: configurations.contractTests) {

@@ -1,9 +1,11 @@
 package org.emela.chautari.controller
 
 import groovy.json.JsonSlurper
+import org.emela.chautari.model.RentalItemDetail
 import org.emela.chautari.model.RentalItemRequest
 import org.emela.chautari.model.RentalItemResponse
 import org.emela.chautari.service.RentalService
+import org.emela.chautari.utils.ChautariUtils
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -15,6 +17,7 @@ import spock.lang.Specification
 
 import static groovy.json.JsonOutput.toJson
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -37,7 +40,6 @@ class RentsApiControllerSpec extends Specification {
 
     def "should create rental item on valid rental request"() {
 
-        //TODO: change request body
 
         given:
         def jsonSlurper = new JsonSlurper()
@@ -72,4 +74,27 @@ class RentsApiControllerSpec extends Specification {
                 .andExpect(status().isBadRequest())
     }
 
+
+    def "should retrieve rental item details on GET rental item"() {
+
+
+        given:
+        rentalService.getRentalItemDetail(_ as String) >> ChautariUtils.prepareRentalItemDetail('inputs/rent-get-response.json')
+
+        when:
+        def response = mockMvc.perform(get('/chautari/rents/3793cb49-8ae7-440c-918c-48ae6d621fa4')
+                .contentType(MediaType.APPLICATION_JSON))
+
+
+        then:
+        response.andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath('$.title').value("Room 101"))
+                .andExpect(jsonPath('$.rentOf').value("room"))
+                .andExpect(jsonPath('$.availability[0].available').value(true))
+                .andExpect(jsonPath('$.price.value').value(12.23))
+                .andExpect(jsonPath('$.price.negotiable').value(true))
+                .andExpect(jsonPath('$.preferences[0].preference').value('Hot girl only'))
+                .andExpect(jsonPath('$.features[0].feature').value('Washer & Dryer included'))
+    }
 }

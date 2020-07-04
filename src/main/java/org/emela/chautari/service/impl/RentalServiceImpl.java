@@ -3,6 +3,7 @@ package org.emela.chautari.service.impl;
 import lombok.extern.log4j.Log4j2;
 import org.emela.chautari.domain.RentalEntity;
 import org.emela.chautari.domain.ResourceEntity;
+import org.emela.chautari.domain.UserEntity;
 import org.emela.chautari.exception.RentalServiceException;
 import org.emela.chautari.exception.ResourceNotFoundException;
 import org.emela.chautari.mapper.RentalEntityMapper;
@@ -10,11 +11,14 @@ import org.emela.chautari.model.RentalItemDetail;
 import org.emela.chautari.model.RentalItemRequest;
 import org.emela.chautari.model.RentalItemResponse;
 import org.emela.chautari.model.RentalItemSummary;
+import org.emela.chautari.model.UserDetail;
 import org.emela.chautari.repository.RentalEntityRepository;
+import org.emela.chautari.service.AddressService;
 import org.emela.chautari.service.RentalAvailabilityService;
 import org.emela.chautari.service.RentalFeatureService;
 import org.emela.chautari.service.RentalPreferenceService;
 import org.emela.chautari.service.RentalService;
+import org.emela.chautari.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,18 +34,24 @@ public class RentalServiceImpl implements RentalService {
     private final RentalFeatureService rentalFeatureService;
     private final RentalPreferenceService rentalPreferenceService;
     private final RentalEntityMapper rentalEntityMapper;
+    private final AddressService addressService;
+    private final UserService userService;
 
 
     public RentalServiceImpl(final RentalEntityRepository rentalEntityRepository,
                              final RentalAvailabilityService rentalAvailabilityService,
                              final RentalFeatureService rentalFeatureService,
                              final RentalPreferenceService rentalPreferenceService,
-                             final RentalEntityMapper rentalEntityMapper) {
+                             final RentalEntityMapper rentalEntityMapper,
+                             final AddressService addressService,
+                             final UserService userService) {
         this.rentalEntityRepository = rentalEntityRepository;
         this.rentalAvailabilityService = rentalAvailabilityService;
         this.rentalFeatureService = rentalFeatureService;
         this.rentalPreferenceService = rentalPreferenceService;
         this.rentalEntityMapper = rentalEntityMapper;
+        this.addressService = addressService;
+        this.userService = userService;
     }
 
     @Override
@@ -49,9 +59,9 @@ public class RentalServiceImpl implements RentalService {
         RentalEntity rentalEntity;
         try {
             log.info("Rental creation request has received for user-id {} ", rentalItemRequest.getUserId());
-            rentalEntity = rentalEntityRepository.save(rentalEntityMapper.mapToRentalEntity(rentalItemRequest));
+            rentalEntity = rentalEntityMapper.mapToRentalEntity(rentalItemRequest);
+            rentalEntity = rentalEntityRepository.save(rentalEntity);
             mapAndSaveRentalAssociatedEntity(rentalItemRequest, rentalEntity);
-
         } catch (Exception e) {
             log.error("Rental creation failed", e);
             throw new RentalServiceException(e);
@@ -62,10 +72,14 @@ public class RentalServiceImpl implements RentalService {
     }
 
     private void mapAndSaveRentalAssociatedEntity(RentalItemRequest rentalItemRequest, RentalEntity rentalEntity) {
+        //TODO: Uncomment when userService ready
+        //UserEntity userEntity = userService.getUserEntity(rentalItemRequest.getUserId());
+        UserEntity userEntity = new UserEntity();
         rentalAvailabilityService.createRentalItemAvailabilityEntity(rentalItemRequest.getAvailability(),
                 rentalEntity);
         rentalFeatureService.createRentalItemFeatureEntity(rentalItemRequest.getFeatures(), rentalEntity);
         rentalPreferenceService.createRentalItemPreferenceEntity(rentalItemRequest.getPreferences(), rentalEntity);
+       // addressService.saveAddress(rentalItemRequest.getLocation(), userEntity);
     }
 
     @Override
@@ -90,6 +104,9 @@ public class RentalServiceImpl implements RentalService {
             RentalEntity rentalEntity = rentalEntityRepository.findByRentalId(UUID.fromString(rentalId))
                     .orElseThrow(ResourceNotFoundException::new);
             rentalItemDetail = rentalEntityMapper.mapToRentalItemDetail(rentalEntity);
+            rentalItemDetail.setAvailability(rentalAvailabilityService.
+                    getRentalItemAvailabilityDetail(rentalEntity.getAvailabilityEntity()));
+//            rentalItemDetail.setPostedBy(userService.getUserDetail());
             rentalItemDetail.setImageIds(retrieveImagesIds(rentalEntity.getResources()));
             rentalItemDetail.setViewedBy(retrieveTotalView());
         } catch (Exception e) {
@@ -134,6 +151,10 @@ public class RentalServiceImpl implements RentalService {
         return resourceEntities.stream().map(ResourceEntity::getResourceId)
                 .map(UUID::toString).collect(Collectors.toList());
 
+    }
+
+    private UserDetail findUserRecordByUserId(RentalItemRequest rentalItemRequest) {
+        return userService.getUserDetail(rentalItemRequest.getUserId());
     }
 
 }

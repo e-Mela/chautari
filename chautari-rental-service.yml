@@ -1059,16 +1059,9 @@ components:
           items:
             $ref:  '#/components/schemas/RentalItemPreference'
         features:
-          type: object
-          properties:
-            available:
-              type: array
-              items:
-                type: string
-            not-available:
-              type: array
-              items:
-                type: string
+          type: array
+          items:
+            $ref:  '#/components/schemas/Feature'
         postedBy:
           $ref: '#/components/schemas/UserDetail'
         postedOn:
@@ -1077,7 +1070,7 @@ components:
           type: array
           items:
             type: string
-            example: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            example: "7dd7123c-e38a-4d2f-95bc-b0b908cdc1a2"
     ResourceResponse:
       type: object
       properties:

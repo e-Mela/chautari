@@ -2,6 +2,7 @@ package org.emela.chautari.mapper;
 
 import org.emela.chautari.domain.UserEntity;
 import org.emela.chautari.model.UserAccountDetail;
+import org.emela.chautari.model.UserDetail;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -10,6 +11,8 @@ public interface UserEntityMapper extends BaseMapper {
 
     UserEntityMapper INSTANCE = Mappers.getMapper(UserEntityMapper.class);
 
+    @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(source = "user.person.title", target = "title")
     @Mapping(source = "user.person.firstName", target = "firstName")
     @Mapping(source = "user.person.middleName", target = "middleName")

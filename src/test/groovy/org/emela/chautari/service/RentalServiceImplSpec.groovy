@@ -18,7 +18,8 @@ class RentalServiceImplSpec extends Specification {
     def setup() {
 
         subject = new RentalServiceImpl(Mock(RentalEntityRepository), Mock(RentalAvailabilityService),
-                Mock(RentalFeatureService), Mock(RentalPreferenceService), RentalEntityMapper.INSTANCE)
+                Mock(RentalFeatureService), Mock(RentalPreferenceService), RentalEntityMapper.INSTANCE,
+                Mock(AddressService), Mock(UserService))
     }
 
 
@@ -101,7 +102,7 @@ class RentalServiceImplSpec extends Specification {
         }
 
         when:
-        def response = subject.deleteRental(rentalId.toString())
+        subject.deleteRental(rentalId.toString())
 
         then:
         RentalServiceException exception = thrown()
@@ -154,7 +155,7 @@ class RentalServiceImplSpec extends Specification {
         }
 
         when:
-        def response = subject.updateRental(rentalId.toString(), rentalItemRequest)
+        subject.updateRental(rentalId.toString(), rentalItemRequest)
 
         then:
         RentalServiceException exception = thrown()

@@ -4,6 +4,7 @@ import org.emela.chautari.domain.CredentialEntity;
 import org.emela.chautari.model.Credential;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueMappingStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
@@ -13,6 +14,8 @@ public interface CredentialEntityMapper extends BaseMapper {
 
     CredentialEntityMapper INSTANCE = Mappers.getMapper(CredentialEntityMapper.class);
 
+    @Mapping(target = "userEntity", ignore = true)
+    @Mapping(target = "id", ignore = true)
     CredentialEntity toCredentialEntity(Credential credential);
 
     @InheritInverseConfiguration
