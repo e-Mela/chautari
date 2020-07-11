@@ -3,8 +3,13 @@ package org.emela.chautari.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.time.ZonedDateTime;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import java.time.OffsetDateTime;
 
 @Data
 @NoArgsConstructor
@@ -18,9 +23,9 @@ public class AvailabilityEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private RentalEntity rentalEntity;
 
-    private ZonedDateTime startDate;
+    private OffsetDateTime startDate;
 
-    private ZonedDateTime endDate;
+    private OffsetDateTime endDate;
 
     private boolean available;
 

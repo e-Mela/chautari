@@ -1,0 +1,43 @@
+{
+  "title": "Room 101",
+  "rentOf": "room",
+  "viewedBy": 12,
+  "status": "New",
+  "availability": [
+    {
+      "duration": null,
+      "available": true
+    }
+  ],
+  "location": null,
+  "price": {
+    "value": 12.23,
+    "negotiable": true
+  },
+  "preferences": [
+    {
+      "preference": "Hot girl only",
+      "priority": "high"
+    },
+    {
+      "preference": "Pubg player",
+      "priority": "low"
+    }
+  ],
+  "features": [
+    {
+      "feature": "Washer & Dryer included",
+      "available": true
+    },
+    {
+      "feature": "AC & Heater included",
+      "available": false
+    }
+  ],
+  "postedBy": {
+    "person": null,
+    "address": null
+  },
+  "postedOn": "2020-06-06T11:39:03-04:00[America/New_York]",
+  "image-ids": []
+}

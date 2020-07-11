@@ -17,17 +17,18 @@ configurations {
 
 dependencies {
     contractTestCompile('au.com.dius:pact-jvm-provider-junit_2.11:3.2.3')
+    compile 'com.h2database:h2'
 }
 
-//task extractContractTests(type: Copy, dependsOn: configurations.contractTests) {
-//    from {
-//        configurations.contractTests.collect { zipTree(it) }
-//    }
-//    into "${sourceSets.contractTest.output.resourcesDir}/contract-tests"
-//}
+task extractContractTests(type: Copy, dependsOn: configurations.contractTests) {
+    from {
+        configurations.contractTests.collect { zipTree(it) }
+    }
+    into "${sourceSets.contractTest.output.resourcesDir}/contract-tests"
+}
 
-task contractTest(type: Test) {
-//    testClassesDir = sourceSets.contractTest.output.classesDir
+task contractTest(type: Test, dependsOn: extractContractTests) {
+    testClassesDirs = sourceSets.contractTest.output.classesDirs
     classpath = sourceSets.contractTest.runtimeClasspath
 
     reports.html.destination = file("${reporting.baseDir}/${name}")
@@ -38,5 +39,3 @@ idea {
         scopes.TEST.plus += [configurations.contractTestCompile]
     }
 }
-
-eclipse.classpath.plusConfigurations << configurations.contractTestCompile

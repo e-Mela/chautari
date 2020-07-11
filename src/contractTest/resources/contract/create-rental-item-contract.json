@@ -1,0 +1,86 @@
+{
+  "provider": {
+    "name": "ChautariRentalServiceProvider"
+  },
+  "consumer": {
+    "name": "ChautariRentalServiceConsumer"
+  },
+  "interactions": [
+    {
+      "provider_state": "200 Success",
+      "description": "Create Rental Item - 200 Success",
+      "request": {
+        "method": "POST",
+        "path": "chautari/rents",
+        "headers": {
+          "content-Type": "application/json"
+        },
+        "body": {
+          "user-id": "49a0e5bb-5eb3-4c61-aee6-8d9bde483f79",
+          "title": "Room 101",
+          "rentOf": "room",
+          "availability": [
+            {
+              "duration": {
+                "start-date": "2020-06-06T15:39:02.624+04:00",
+                "end-date": "2020-06-07T15:39:02.624+04:00"
+              },
+              "available": "true"
+            }
+          ],
+          "location": {
+            "address1": "5312 Amity Moor Room",
+            "address2": "",
+            "city": "westerville",
+            "state": "OH",
+            "country": "US",
+            "zip": "43081"
+          },
+          "price": {
+            "value": "12.23",
+            "negotiable": "false"
+          },
+          "preferences": [
+            {
+              "preference": "Hot girl only",
+              "priority": "high"
+            },
+            {
+              "preference": "Pubg player",
+              "priority": "low"
+            }
+          ],
+          "features": [
+            {
+              "feature": "Washer & Dryer included",
+              "available": "true"
+            },
+            {
+              "feature": "AC & Heater included",
+              "available": "false"
+            }
+          ],
+          "postedOn": "2020-06-06T15:39:02.624Z",
+          "image-ids": [
+            "49a0e5bb-5eb3-4c61-aee6-8d9bde483429",
+            "49a0e5bb-5eb3-4c61-aee6-8d9bde483f23"
+          ]
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "content-Type": "application/json"
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pact-specification": {
+      "version": "2.0.0"
+    },
+    "pact-jvm": {
+      "version": "3.1.1"
+    }
+  }
+}

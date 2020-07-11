@@ -13,6 +13,7 @@ import org.mapstruct.factory.Mappers;
 public interface SecurityQuestionEntityMapper extends BaseMapper {
     SecurityQuestionEntityMapper INSTANCE = Mappers.getMapper(SecurityQuestionEntityMapper.class);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(ignore = true, target = "credentialEntity")
     SecurityQuestionEntity toSecurityQuestionEntity(SecurityQuestion securityQuestion);
 

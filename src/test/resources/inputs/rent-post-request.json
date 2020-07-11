@@ -1,0 +1,42 @@
+{
+  "user-id": "string",
+  "title": "string",
+  "rentOf": "room",
+  "availability": [
+    {
+      "duration": {
+        "start-date": "2020-06-06T15:39:02.624Z",
+        "end-date": "2020-06-06T15:39:02.624Z"
+      },
+      "available": true
+    }
+  ],
+  "location": {
+    "address1": "string",
+    "address2": "string",
+    "city": "string",
+    "state": "string",
+    "country": "string",
+    "zip": 0
+  },
+  "price": {
+    "value": 0,
+    "negotiable": true
+  },
+  "preferences": [
+    {
+      "preference": "string",
+      "priority": "high"
+    }
+  ],
+  "features": [
+    {
+      "feature": "string",
+      "available": true
+    }
+  ],
+  "postedOn": "string",
+  "image-ids": [
+    123423241
+  ]
+}
