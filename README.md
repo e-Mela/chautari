@@ -22,5 +22,7 @@ spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 #### ER diagram:
 
 ![chautari-er-diagram](chautari-er-diagram.png)
+
+
  
  
