@@ -2,13 +2,9 @@ package org.emela.chautari.controller;
 
 import io.swagger.annotations.ApiParam;
 import org.emela.chautari.api.RentsApi;
-import org.emela.chautari.model.RentalItemDetail;
-import org.emela.chautari.model.RentalItemRequest;
-import org.emela.chautari.model.RentalItemResponse;
-import org.emela.chautari.model.RentalItemSummary;
-import org.emela.chautari.model.ResourceResponse;
+import org.emela.chautari.model.*;
 import org.emela.chautari.service.RentalService;
-import org.springframework.core.io.Resource;
+import org.emela.chautari.service.ResourceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,9 +22,11 @@ import java.util.List;
 public class RentsApiController implements RentsApi {
 
     private RentalService rentalService;
+    private ResourceService resourceService;
 
-    public RentsApiController(final RentalService rentalService) {
+    public RentsApiController(final RentalService rentalService, ResourceService resourceService) {
         this.rentalService = rentalService;
+        this.resourceService = resourceService;
     }
 
     @Override
@@ -55,14 +53,19 @@ public class RentsApiController implements RentsApi {
     }
 
     @Override
-    public ResponseEntity<Resource> getResource(String resourceId) {
-        return null;
+    public ResponseEntity<ResourceDetail> getResource(String resourceId, String rentalId) {
+        return ResponseEntity.ok(resourceService.getResource(resourceId, rentalId));
     }
 
     @Override
-    public ResponseEntity<List<ResourceResponse>> resourceUpload(String userId, String rentalId,
-                                                                 @Valid MultipartFile file) {
-        return null;
+    public ResponseEntity<ResourceResponseBean> resourceUpload(String userId, String rentalId,
+                                                                 List<MultipartFile> files) {
+        return ResponseEntity.ok(resourceService.uploadResources(userId, rentalId, files));
+    }
+
+    @Override
+    public ResponseEntity<ResourceResponse> deleteResource(String resourceId, String rentalId) {
+        return ResponseEntity.ok(resourceService.deleteResource(resourceId, rentalId));
     }
 
     @Override
