@@ -495,7 +495,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResourceResponseBean'
+                $ref: '#/components/schemas/ResourceResponseList'
         '400':
           description: Bad Request
           content:
@@ -1097,7 +1097,7 @@ components:
         message:
           type: string
 
-    ResourceResponseBean:
+    ResourceResponseList:
       type: object
       properties:
         status:

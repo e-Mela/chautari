@@ -15,7 +15,7 @@ import java.util.Objects;
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2020-07-22T19:31:39.445720-04:00[America/New_York]")
 
-public class ResourceResponseBean   {
+public class ResourceResponseList {
   @JsonProperty("status")
   private String status = null;
 
@@ -26,7 +26,7 @@ public class ResourceResponseBean   {
   @Valid
   private List<ResourceResponse> resourceResponse = null;
 
-  public ResourceResponseBean status(String status) {
+  public ResourceResponseList status(String status) {
     this.status = status;
     return this;
   }
@@ -46,7 +46,7 @@ public class ResourceResponseBean   {
     this.status = status;
   }
 
-  public ResourceResponseBean message(String message) {
+  public ResourceResponseList message(String message) {
     this.message = message;
     return this;
   }
@@ -66,12 +66,12 @@ public class ResourceResponseBean   {
     this.message = message;
   }
 
-  public ResourceResponseBean resourceResponse(List<ResourceResponse> resourceResponse) {
+  public ResourceResponseList resourceResponse(List<ResourceResponse> resourceResponse) {
     this.resourceResponse = resourceResponse;
     return this;
   }
 
-  public ResourceResponseBean addResourceResponseItem(ResourceResponse resourceResponseItem) {
+  public ResourceResponseList addResourceResponseItem(ResourceResponse resourceResponseItem) {
     if (this.resourceResponse == null) {
       this.resourceResponse = new ArrayList<ResourceResponse>();
     }
@@ -104,10 +104,10 @@ public class ResourceResponseBean   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ResourceResponseBean resourceResponseBean = (ResourceResponseBean) o;
-    return Objects.equals(this.status, resourceResponseBean.status) &&
-        Objects.equals(this.message, resourceResponseBean.message) &&
-        Objects.equals(this.resourceResponse, resourceResponseBean.resourceResponse);
+    ResourceResponseList resourceResponseList = (ResourceResponseList) o;
+    return Objects.equals(this.status, resourceResponseList.status) &&
+        Objects.equals(this.message, resourceResponseList.message) &&
+        Objects.equals(this.resourceResponse, resourceResponseList.resourceResponse);
   }
 
   @Override

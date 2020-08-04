@@ -199,7 +199,7 @@ public interface RentsApi {
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/{rental-id}/resource", produces = { "application/json" }, consumes = {
             "multipart/form-data" }, method = RequestMethod.POST)
-    default ResponseEntity<ResourceResponseBean> resourceUpload(@ApiParam(value = "" , required = true) @RequestHeader(value="user-id") String userId,
+    default ResponseEntity<ResourceResponseList> resourceUpload(@ApiParam(value = "" , required = true) @RequestHeader(value="user-id") String userId,
                                                                 @ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,
                                                                 @ApiParam(value = "", required = true) @RequestPart(value="files")  List<MultipartFile> files)
     {

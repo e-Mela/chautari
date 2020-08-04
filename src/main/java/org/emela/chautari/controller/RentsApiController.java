@@ -2,7 +2,13 @@ package org.emela.chautari.controller;
 
 import io.swagger.annotations.ApiParam;
 import org.emela.chautari.api.RentsApi;
-import org.emela.chautari.model.*;
+import org.emela.chautari.model.RentalItemDetail;
+import org.emela.chautari.model.RentalItemRequest;
+import org.emela.chautari.model.RentalItemResponse;
+import org.emela.chautari.model.RentalItemSummary;
+import org.emela.chautari.model.ResourceDetail;
+import org.emela.chautari.model.ResourceResponse;
+import org.emela.chautari.model.ResourceResponseList;
 import org.emela.chautari.service.RentalService;
 import org.emela.chautari.service.ResourceService;
 import org.springframework.http.HttpStatus;
@@ -58,8 +64,8 @@ public class RentsApiController implements RentsApi {
     }
 
     @Override
-    public ResponseEntity<ResourceResponseBean> resourceUpload(String userId, String rentalId,
-                                                                 List<MultipartFile> files) {
+    public ResponseEntity<ResourceResponseList> resourceUpload(String userId, String rentalId,
+                                                               List<MultipartFile> files) {
         return ResponseEntity.ok(resourceService.uploadResources(userId, rentalId, files));
     }
 

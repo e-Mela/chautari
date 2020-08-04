@@ -9,7 +9,7 @@ import org.emela.chautari.exception.RentalServiceException;
 import org.emela.chautari.exception.ResourceNotFoundException;
 import org.emela.chautari.model.ResourceDetail;
 import org.emela.chautari.model.ResourceResponse;
-import org.emela.chautari.model.ResourceResponseBean;
+import org.emela.chautari.model.ResourceResponseList;
 import org.emela.chautari.repository.ResourceEntityRepository;
 import org.emela.chautari.service.RentalService;
 import org.emela.chautari.service.ResourceService;
@@ -47,7 +47,7 @@ public class RentalResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public ResourceResponseBean uploadResources(String userId, String rentalId, List<MultipartFile> files) {
+    public ResourceResponseList uploadResources(String userId, String rentalId, List<MultipartFile> files) {
         UserEntity user = userService.getUserEntity(userId);
         RentalEntity rentalEntity = rentalService.getRentalEntity(rentalId);
 
@@ -59,7 +59,7 @@ public class RentalResourceServiceImpl implements ResourceService {
         List<ResourceResponse> resourceResponses = CollectionUtils.emptyIfNull(savedEntities).stream()
                 .map(it -> buildResourceResponse(it.getResourceId())).collect(Collectors.toList());
 
-        return new ResourceResponseBean().message("success").resourceResponse(resourceResponses).status("success");
+        return new ResourceResponseList().message("success").resourceResponse(resourceResponses).status("success");
     }
 
     @Override
@@ -72,7 +72,7 @@ public class RentalResourceServiceImpl implements ResourceService {
                     .file(resourceDetail.getResourceFile()).message("Success");
         } catch (Exception e) {
             log.error("resource not found", e);
-            throw new RentalServiceException(e);
+            throw new RentalServiceException("resource not found for rental id" + rentalId + "resourceId  " + resourceId, e);
         }
     }
 
@@ -85,7 +85,7 @@ public class RentalResourceServiceImpl implements ResourceService {
             resourceEntityRepository.delete(resourceEntity);
         } catch (Exception e) {
             log.error("Delete resource Item failed", e);
-            throw new RentalServiceException(e);
+            throw new RentalServiceException("Delete resource Item failed for rental id " + rentalId + " resourceId  " + resourceId  , e);
         }
         return new ResourceResponse().resourceId(rentalId).message("success");
     }
@@ -100,7 +100,7 @@ public class RentalResourceServiceImpl implements ResourceService {
             resourceEntity.setResourceName(file.getOriginalFilename());
         } catch (Exception e) {
             log.error("invalid file");
-            throw new RentalServiceException(e);
+            throw new RentalServiceException("Invalid file can not upload",  e);
         }
         return resourceEntity;
     }
