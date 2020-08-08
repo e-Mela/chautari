@@ -45,7 +45,7 @@ public class CredentialServiceImpl implements CredentialService {
         Optional<CredentialEntity> response;
         response = credentialEntityRepository.findByUserNameAndPassword(credential.getUserName(), credential.getPassword());
         if (response.isPresent()) {
-            return new AuthenticationResponse().userId(response.get().getUserName()).message("success");
+            return new AuthenticationResponse().userId(response.get().getUserEntity().getUserId().toString()).message("success");
         }
 
         response = credentialEntityRepository.findByUserName(credential.getUserName());
@@ -53,7 +53,7 @@ public class CredentialServiceImpl implements CredentialService {
             return new AuthenticationResponse().userId(credential.getUserName()).message("Invalid password!!!");
         }
 
-        return new AuthenticationResponse().userId(credential.getUserName()).message("user does not exist!!");
+        return new AuthenticationResponse().userId(response.get().getUserEntity().getUserId().toString()).message("user does not exist!!");
 
     }
 }

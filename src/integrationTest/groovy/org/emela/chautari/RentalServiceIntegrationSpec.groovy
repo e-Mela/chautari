@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import spock.lang.Ignore
 import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -25,6 +27,9 @@ class RentalServiceIntegrationSpec extends Specification {
 
     @Autowired
     private MockMvc mockMvc
+
+    @Autowired
+    ObjectMapper objectMapper
 
 
     def 'test chautari application health'() {
@@ -77,6 +82,23 @@ class RentalServiceIntegrationSpec extends Specification {
 
         then:
         getResponse != null
+
+    }
+
+    @Ignore
+    //TODO -FIX THIS TEST LATER
+    def 'test create rental item resource with valid request'() {
+        given:
+        byte [] requestJson = new File("src/integrationTest/resources/input/happy.png").bytes
+
+        when:
+        String response = mockMvc.perform(MockMvcRequestBuilders.multipart("/chautari/rents/rental-id/resource")
+                .file('test-file.jpg', requestJson)
+                .header("user-id", "fake-user-id"))
+                .andExpect(status().is(200))
+
+        then:
+        response != null
 
     }
 }

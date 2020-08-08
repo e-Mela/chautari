@@ -1,8 +1,7 @@
 package org.emela.chautari.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.emela.chautari.model.SetupResponse
-import org.emela.chautari.model.UserAccountDetail
+import org.emela.chautari.model.*
 import org.emela.chautari.service.SetupService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc

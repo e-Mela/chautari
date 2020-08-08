@@ -1,23 +1,27 @@
 package org.emela.chautari.controller
 
+
 import groovy.json.JsonSlurper
-import org.emela.chautari.model.RentalItemDetail
 import org.emela.chautari.model.RentalItemRequest
 import org.emela.chautari.model.RentalItemResponse
 import org.emela.chautari.service.RentalService
+import org.emela.chautari.service.ResourceService
 import org.emela.chautari.utils.ChautariUtils
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
+import org.springframework.mock.web.MockMultipartFile
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.setup.MockMvcBuilders
 import org.springframework.web.context.WebApplicationContext
 import spock.lang.Specification
 
 import static groovy.json.JsonOutput.toJson
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -30,6 +34,9 @@ class RentsApiControllerSpec extends Specification {
 
     @SpringBean
     private RentalService rentalService = Stub();
+
+    @MockBean
+    private ResourceService resourceService
 
     private MockMvc mockMvc
 
@@ -76,8 +83,6 @@ class RentsApiControllerSpec extends Specification {
 
 
     def "should retrieve rental item details on GET rental item"() {
-
-
         given:
         rentalService.getRentalItemDetail(_ as String) >> ChautariUtils.prepareRentalItemDetail('inputs/rent-get-response.json')
 
@@ -96,5 +101,21 @@ class RentsApiControllerSpec extends Specification {
                 .andExpect(jsonPath('$.price.negotiable').value(true))
                 .andExpect(jsonPath('$.preferences[0].preference').value('Hot girl only'))
                 .andExpect(jsonPath('$.features[0].feature').value('Washer & Dryer included'))
+    }
+
+    def 'should create new resource for a given user and rental-id on POST uploadResource' () {
+        given:
+        MockMultipartFile firstFile = new MockMultipartFile("picture_1", "picture_1.jpg", "text/plain", "fake_picture_1".getBytes())
+        MockMultipartFile secondFile = new MockMultipartFile("picture_2", "picture_2.png", "text/plain", "fake_picture_2".getBytes())
+
+        when:
+        String response = mockMvc.perform(MockMvcRequestBuilders.multipart("/chautari/rents/rental-id/resource")
+                .file(firstFile)
+                .file(secondFile)
+                .header("user-id", "fake-user-id"))
+                .andExpect(status().is(200))
+
+        then:
+        response != null
     }
 }
