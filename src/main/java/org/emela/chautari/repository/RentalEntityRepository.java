@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface RentalEntityRepository extends JpaRepository<RentalEntity, Long> {
 
     Optional<RentalEntity> findByRentalId(UUID rentalId);
-
+    Optional<RentalEntity> deleteByRentalId(UUID rentalId);
+    Optional<RentalEntity> findAllByTitleContaining(String titleSearchString);
 }

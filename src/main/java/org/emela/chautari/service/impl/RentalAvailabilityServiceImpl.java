@@ -35,7 +35,6 @@ public class RentalAvailabilityServiceImpl implements RentalAvailabilityService 
             AvailabilityEntity availabilityEntity = availabilityEntityMapper.mapToAvailabilityEntity(availability);
             availabilityEntity.setRentalEntity(rentalEntity);
             availabilityEntities.add(availabilityEntityRepository.save(availabilityEntity));
-
         });
         log.debug("Rental item availability has saved successfully for rental-id {} ", rentalEntity.getRentalId());
         return availabilityEntities;

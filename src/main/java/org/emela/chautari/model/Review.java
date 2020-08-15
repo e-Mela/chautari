@@ -3,7 +3,6 @@ package org.emela.chautari.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.Valid;
@@ -12,48 +11,11 @@ import javax.validation.constraints.*;
 /**
  * Review
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-31T10:46:01.641-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-07-25T10:24:05.184-04:00[America/New_York]")
 
 public class Review   {
-  /**
-   * Gets or Sets like
-   */
-  public enum LikeEnum {
-    NUMBER_1(1),
-    
-    NUMBER_2(2),
-    
-    NUMBER_3(3),
-    
-    NUMBER_4(4),
-    
-    NUMBER_5(5);
-
-    private Integer value;
-
-    LikeEnum(Integer value) {
-      this.value = value;
-    }
-
-    @Override
-    @JsonValue
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    @JsonCreator
-    public static LikeEnum fromValue(String text) {
-      for (LikeEnum b : LikeEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      throw new IllegalArgumentException("Unexpected value '" + text + "'");
-    }
-  }
-
-  @JsonProperty("like")
-  private LikeEnum like = null;
+  @JsonProperty("star")
+  private Integer star = null;
 
   @JsonProperty("comment")
   private String comment = null;
@@ -61,24 +23,25 @@ public class Review   {
   @JsonProperty("reviewer")
   private String reviewer = null;
 
-  public Review like(LikeEnum like) {
-    this.like = like;
+  public Review star(Integer star) {
+    this.star = star;
     return this;
   }
 
   /**
-   * Get like
-   * @return like
+   * Get star
+   * @return star
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
 
-  public LikeEnum getLike() {
-    return like;
+  public Integer getStar() {
+    return star;
   }
 
-  public void setLike(LikeEnum like) {
-    this.like = like;
+  public void setStar(Integer star) {
+    this.star = star;
   }
 
   public Review comment(String comment) {
@@ -110,7 +73,8 @@ public class Review   {
    * Get reviewer
    * @return reviewer
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "10c0cca0-ce1b-11ea-87d0-0242ac130003", required = true, value = "")
+  @NotNull
 
 
   public String getReviewer() {
@@ -131,14 +95,14 @@ public class Review   {
       return false;
     }
     Review review = (Review) o;
-    return Objects.equals(this.like, review.like) &&
+    return Objects.equals(this.star, review.star) &&
         Objects.equals(this.comment, review.comment) &&
         Objects.equals(this.reviewer, review.reviewer);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(like, comment, reviewer);
+    return Objects.hash(star, comment, reviewer);
   }
 
   @Override
@@ -146,7 +110,7 @@ public class Review   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Review {\n");
     
-    sb.append("    like: ").append(toIndentedString(like)).append("\n");
+    sb.append("    star: ").append(toIndentedString(star)).append("\n");
     sb.append("    comment: ").append(toIndentedString(comment)).append("\n");
     sb.append("    reviewer: ").append(toIndentedString(reviewer)).append("\n");
     sb.append("}");

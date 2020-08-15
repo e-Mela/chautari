@@ -5,22 +5,41 @@
  */
 package org.emela.chautari.api;
 
-import io.swagger.annotations.*;
-import org.emela.chautari.model.*;
-import org.springframework.core.io.Resource;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
+import org.emela.chautari.model.ErrorModel;
+import org.emela.chautari.model.RentalItemDetail;
+import org.emela.chautari.model.RentalItemRequest;
+import org.emela.chautari.model.RentalItemResponse;
+import org.emela.chautari.model.RentalItemSummary;
+import org.emela.chautari.model.ResourceDetail;
+import org.emela.chautari.model.ResourceResponse;
+import org.emela.chautari.model.ResourceResponseList;
+import org.emela.chautari.model.Review;
+import org.emela.chautari.model.ReviewResponse;
+import org.emela.chautari.model.Reviews;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-04-19T21:21:27.227-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-08-12T21:38:52.884-04:00[America/New_York]")
 
 @Validated
 @Api(value = "rents", description = "the rents API")
@@ -30,8 +49,39 @@ public interface RentsApi {
         return Optional.empty();
     }
 
+    @ApiOperation(value = "create new review for rental item", nickname = "addReview", notes = "Provides user to like and comment rental item", response = ReviewResponse.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = ReviewResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @RequestMapping(value = "/rents/{rental-id}/reviews",
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.POST)
+    default ResponseEntity<ReviewResponse> addReview(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@ApiParam(value = ""  )  @Valid @RequestBody Review review) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"review-id\" : \"review-id\"}");
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
     @ApiOperation(value = "create new rental item", nickname = "createRental", notes = "Provides user to post new rental item", response = RentalItemResponse.class, authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = RentalItemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
@@ -41,12 +91,13 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents", produces = { "application/json" }, consumes = {
-            "application/json" }, method = RequestMethod.POST)
-    default ResponseEntity<RentalItemResponse> createRental(
-            @ApiParam(value = "") @Valid @RequestBody RentalItemRequest rentalItemRequest) {
+    @RequestMapping(value = "/rents",
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.POST)
+    default ResponseEntity<RentalItemResponse> createRental(@ApiParam(value = ""  )  @Valid @RequestBody RentalItemRequest rentalItemRequest) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"rental-id\" : \"rental-id\"}");
                     break;
@@ -56,9 +107,11 @@ public interface RentsApi {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
+
 
     @ApiOperation(value = "delete rental item", nickname = "deleteRental", notes = "Provides user to delete posted rental item", response = RentalItemResponse.class, authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = RentalItemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
@@ -68,11 +121,12 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/{rental-id}", produces = { "application/json" }, method = RequestMethod.DELETE)
-    default ResponseEntity<RentalItemResponse> deleteRental(
-            @ApiParam(value = "", required = true) @PathVariable("rental-id") String rentalId) {
+    @RequestMapping(value = "/rents/{rental-id}",
+            produces = { "application/json" },
+            method = RequestMethod.DELETE)
+    default ResponseEntity<RentalItemResponse> deleteRental(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"rental-id\" : \"rental-id\"}");
                     break;
@@ -83,8 +137,10 @@ public interface RentsApi {
 
     }
 
+
     @ApiOperation(value = "return resource", nickname = "deleteResource", notes = "Provide endpoint to upload resources", response = ResourceResponse.class, authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = ResourceResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
@@ -94,15 +150,14 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/resource/{resource-id}", produces = {
-            "application/json" }, method = RequestMethod.DELETE)
-    default ResponseEntity<ResourceResponse> deleteResource(@ApiParam(value = "",required=true) @PathVariable("resource-id") String resourceId,
-                                                            @ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
+    @RequestMapping(value = "/rents/{rental-id}/resource/{resource-id}",
+            produces = { "application/json" },
+            method = RequestMethod.DELETE)
+    default ResponseEntity<ResourceResponse> deleteResource(@ApiParam(value = "",required=true) @PathVariable("resource-id") String resourceId,@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json",
-                            "{  \"message\" : \"message\",  \"resource-id\" : \"resource-id\",  \"status\" : \"status\"}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"message\" : \"message\",  \"resource-id\" : \"resource-id\",  \"status\" : \"status\"}");
                     break;
                 }
             }
@@ -111,8 +166,31 @@ public interface RentsApi {
 
     }
 
+
+    @ApiOperation(value = "delete specific review of rental item", nickname = "deleteReview", notes = "Delete specific review from rental", authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation"),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @RequestMapping(value = "/rents/{rental-id}/reviews/{review-id}",
+            produces = { "application/json" },
+            method = RequestMethod.DELETE)
+    default ResponseEntity<Void> deleteReview(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@ApiParam(value = "",required=true) @PathVariable("review-id") String reviewId) {
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
     @ApiOperation(value = "return rental detail information", nickname = "getRentalItems", notes = "Provides rental item detail information", response = RentalItemDetail.class, authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = RentalItemDetail.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
@@ -122,14 +200,14 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/{rental-id}", produces = { "application/json" }, method = RequestMethod.GET)
-    default ResponseEntity<RentalItemDetail> getRentalItems(
-            @ApiParam(value = "", required = true) @PathVariable("rental-id") String rentalId) {
+    @RequestMapping(value = "/rents/{rental-id}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    default ResponseEntity<RentalItemDetail> getRentalItems(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json",
-                            "{  \"preferences\" : [ {    \"preference\" : \"preference\",    \"priority\" : \"high\"  }, {    \"preference\" : \"preference\",    \"priority\" : \"high\"  } ],  \"availability\" : {    \"not-available\" : [ {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    }, {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    } ],    \"available\" : {      \"end-date\" : \"end-date\",      \"start-date\" : \"start-date\"    }  },  \"title\" : \"title\",  \"postedBy\" : {    \"address\" : {      \"zip\" : 0,      \"country\" : \"country\",      \"address2\" : \"address2\",      \"city\" : \"city\",      \"address1\" : \"address1\",      \"state\" : \"state\"    },    \"person\" : {      \"firstName\" : \"firstName\",      \"lastName\" : \"lastName\",      \"middleName\" : \"middleName\",      \"title\" : \"Mr\"    }  },  \"image-ids\" : [ \"123423241\", \"123423241\" ],  \"features\" : {    \"not-available\" : [ \"not-available\", \"not-available\" ],    \"available\" : [ \"available\", \"available\" ]  },  \"viewedBy\" : 0,  \"price\" : {    \"type\" : true,    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"contact\" : {    \"phoneNumber\" : \"phoneNumber\",    \"email\" : \"email\"  },  \"postedOn\" : \"postedOn\",  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"room\",  \"status\" : \"New\"}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"postedBy\" : {    \"address\" : {      \"zip\" : 0,      \"country\" : \"country\",      \"address2\" : \"address2\",      \"city\" : \"city\",      \"address1\" : \"address1\",      \"state\" : \"state\"    },    \"person\" : {      \"firstName\" : \"firstName\",      \"lastName\" : \"lastName\",      \"middleName\" : \"middleName\",      \"title\" : \"Mr\"    }  },  \"image-ids\" : [ \"7dd7123c-e38a-4d2f-95bc-b0b908cdc1a2\", \"7dd7123c-e38a-4d2f-95bc-b0b908cdc1a2\" ],  \"features\" : [ {    \"feature\" : \"feature\",    \"available\" : true  }, {    \"feature\" : \"feature\",    \"available\" : true  } ],  \"preferences\" : [ {    \"preference\" : \"preference\",    \"priority\" : \"high\"  }, {    \"preference\" : \"preference\",    \"priority\" : \"high\"  } ],  \"viewedBy\" : 0,  \"price\" : {    \"negotiable\" : true,    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"postedOn\" : \"postedOn\",  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"room\",  \"availability\" : [ {    \"duration\" : {      \"end-date\" : \"2000-01-23T04:56:07.000+00:00\",      \"start-date\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"available\" : true  }, {    \"duration\" : {      \"end-date\" : \"2000-01-23T04:56:07.000+00:00\",      \"start-date\" : \"2000-01-23T04:56:07.000+00:00\"    },    \"available\" : true  } ],  \"title\" : \"title\",  \"status\" : \"New\"}");
                     break;
                 }
             }
@@ -138,7 +216,8 @@ public interface RentsApi {
 
     }
 
-    @ApiOperation(value = "return list of available rental items", nickname = "getRentals", notes = "Provides available rental items summary filtering by title, location, type, availability, feature and preference", response = RentalItemSummary.class, responseContainer = "List", tags = {})
+
+    @ApiOperation(value = "return list of available rental items", nickname = "getRentals", notes = "Provides available rental items summary filtering by title, location, type, availability, feature and preference", response = RentalItemSummary.class, responseContainer = "List", tags={  })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = RentalItemSummary.class, responseContainer = "List"),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
@@ -148,19 +227,14 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents", produces = { "application/json" }, method = RequestMethod.GET)
-    default ResponseEntity<List<RentalItemSummary>> getRentals(
-            @ApiParam(value = "") @Valid @RequestParam(value = "title", required = false) String title,
-            @ApiParam(value = "") @Valid @RequestParam(value = "location", required = false) String location,
-            @ApiParam(value = "") @Valid @RequestParam(value = "type", required = false) String type,
-            @ApiParam(value = "start date and end date") @Valid @RequestParam(value = "availability", required = false) String availability,
-            @ApiParam(value = "") @Valid @RequestParam(value = "feature", required = false) String feature,
-            @ApiParam(value = "") @Valid @RequestParam(value = "preference", required = false) String preference) {
+    @RequestMapping(value = "/rents",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    default ResponseEntity<List<RentalItemSummary>> getRentals(@ApiParam(value = "") @Valid @RequestParam(value = "title", required = false) String title,@ApiParam(value = "") @Valid @RequestParam(value = "location", required = false) String location,@ApiParam(value = "") @Valid @RequestParam(value = "type", required = false) String type,@ApiParam(value = "start date and end date") @Valid @RequestParam(value = "availability", required = false) String availability,@ApiParam(value = "") @Valid @RequestParam(value = "feature", required = false) String feature,@ApiParam(value = "") @Valid @RequestParam(value = "preference", required = false) String preference) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json",
-                            "{  \"price\" : {    \"type\" : true,    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"rentOf\",  \"title\" : \"title\",  \"image-id\" : \"image-id\"}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"price\" : {    \"negotiable\" : true,    \"value\" : 0.80082819046101150206595775671303272247314453125  },  \"location\" : {    \"zip\" : 0,    \"country\" : \"country\",    \"address2\" : \"address2\",    \"city\" : \"city\",    \"address1\" : \"address1\",    \"state\" : \"state\"  },  \"rentOf\" : \"rentOf\",  \"title\" : \"title\",  \"image-id\" : \"image-id\"}");
                     break;
                 }
             }
@@ -169,27 +243,12 @@ public interface RentsApi {
 
     }
 
-    @ApiOperation(value = "return resource", nickname = "getResource", notes = "Provide endpoint to upload resources", response = Resource.class, authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
-    @ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation", response = Resource.class),
-            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
-            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
-            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
-            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
-            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
-            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
-            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/resource/{resource-id}", produces = { "image/_*",
-            "application/json" }, method = RequestMethod.GET)
-    default ResponseEntity<ResourceDetail> getResource(@ApiParam(value = "",required=true) @PathVariable("resource-id") String resourceId,@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
-    }
-
-    @ApiOperation(value = "upload resources", nickname = "resourceUpload", notes = "Provide endpoint to upload resources", response = ResourceResponse.class, responseContainer = "List", authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
+    @ApiOperation(value = "return resource", nickname = "getResource", notes = "Provide endpoint to upload resources", response = ResourceDetail.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "successful operation", response = ResourceResponse.class, responseContainer = "List"),
+            @ApiResponse(code = 200, message = "successful operation", response = ResourceDetail.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
             @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
             @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
@@ -197,17 +256,14 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/{rental-id}/resource", produces = { "application/json" }, consumes = {
-            "multipart/form-data" }, method = RequestMethod.POST)
-    default ResponseEntity<ResourceResponseList> resourceUpload(@ApiParam(value = "" , required = true) @RequestHeader(value="user-id") String userId,
-                                                                @ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,
-                                                                @ApiParam(value = "", required = true) @RequestPart(value="files")  List<MultipartFile> files)
-    {
+    @RequestMapping(value = "/rents/{rental-id}/resource/{resource-id}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    default ResponseEntity<ResourceDetail> getResource(@ApiParam(value = "",required=true) @PathVariable("resource-id") String resourceId,@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    ApiUtil.setExampleResponse(request, "application/json",
-                            "{  \"message\" : \"message\",  \"resource-id\" : \"resource-id\",  \"status\" : \"status\"}");
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"file\" : \"file\",  \"message\" : \"message\",  \"resource-id\" : \"resource-id\"}");
                     break;
                 }
             }
@@ -216,8 +272,98 @@ public interface RentsApi {
 
     }
 
-    @ApiOperation(value = "update rental item", nickname = "uptateRental", notes = "Provides user to update rental item", response = RentalItemResponse.class, authorizations = {
-            @Authorization(value = "bearerAuth") }, tags = {})
+
+    @ApiOperation(value = "return specific review of rental item", nickname = "getReview", notes = "Provides like and comment of rental item", response = Review.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Review.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @RequestMapping(value = "/rents/{rental-id}/reviews/{review-id}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    default ResponseEntity<Review> getReview(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@ApiParam(value = "",required=true) @PathVariable("review-id") String reviewId) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"star\" : 6,  \"comment\" : \"comment\",  \"reviewer\" : \"10c0cca0-ce1b-11ea-87d0-0242ac130003\"}");
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    @ApiOperation(value = "return review summary of rental item", nickname = "getReviews", notes = "Provides like and comment overall summary of rental item", response = Reviews.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = Reviews.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @RequestMapping(value = "/rents/{rental-id}/reviews",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    default ResponseEntity<Reviews> getReviews(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"average-like\" : 0.80082819046101150206595775671303272247314453125,  \"reviews\" : [ {    \"star\" : 6,    \"comment\" : \"comment\",    \"reviewer\" : \"10c0cca0-ce1b-11ea-87d0-0242ac130003\"  }, {    \"star\" : 6,    \"comment\" : \"comment\",    \"reviewer\" : \"10c0cca0-ce1b-11ea-87d0-0242ac130003\"  } ]}");
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    @ApiOperation(value = "upload resources", nickname = "resourceUpload", notes = "Provide endpoint to upload resources", response = ResourceResponseList.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = ResourceResponseList.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @RequestMapping(value = "/rents/{rental-id}/resource",
+            produces = { "application/json" },
+            consumes = { "multipart/form-data" },
+            method = RequestMethod.POST)
+    default ResponseEntity<ResourceResponseList> resourceUpload(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@ApiParam(value = "" ) @RequestHeader(value="user-id", required=false) String userId,@ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile file) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"resourceResponse\" : [ {    \"message\" : \"message\",    \"resource-id\" : \"resource-id\",    \"status\" : \"status\"  }, {    \"message\" : \"message\",    \"resource-id\" : \"resource-id\",    \"status\" : \"status\"  } ],  \"message\" : \"message\",  \"status\" : \"status\"}");
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    @ApiOperation(value = "update rental item", nickname = "updateRental", notes = "Provides user to update rental item", response = RentalItemResponse.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = RentalItemResponse.class),
             @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
@@ -227,15 +373,45 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/{rental-id}", produces = { "application/json" }, consumes = {
-            "application/json" }, method = RequestMethod.PUT)
-    default ResponseEntity<RentalItemResponse> updateRental(
-            @ApiParam(value = "", required = true) @PathVariable("rental-id") String rentalId,
-            @ApiParam(value = "") @Valid @RequestBody RentalItemRequest rentalItemRequest) {
+    @RequestMapping(value = "/rents/{rental-id}",
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.PUT)
+    default ResponseEntity<RentalItemResponse> updateRental(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@ApiParam(value = ""  )  @Valid @RequestBody RentalItemRequest rentalItemRequest) {
         getRequest().ifPresent(request -> {
-            for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
                     ApiUtil.setExampleResponse(request, "application/json", "{  \"rental-id\" : \"rental-id\"}");
+                    break;
+                }
+            }
+        });
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+    }
+
+
+    @ApiOperation(value = "update specific review of rental item", nickname = "updateReview", notes = "Update like and comment of rental item", response = ReviewResponse.class, authorizations = {
+            @Authorization(value = "bearerAuth")
+    }, tags={  })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = ReviewResponse.class),
+            @ApiResponse(code = 400, message = "Bad Request", response = ErrorModel.class),
+            @ApiResponse(code = 401, message = "Unauthorized, Invalid or Missing Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 403, message = "Access Denied, Insufficient Scope privilege Or Expired Access Token", response = ErrorModel.class),
+            @ApiResponse(code = 404, message = "Resource Not Found", response = ErrorModel.class),
+            @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
+            @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
+            @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
+    @RequestMapping(value = "/rents/{rental-id}/reviews/{review-id}",
+            produces = { "application/json" },
+            consumes = { "application/json" },
+            method = RequestMethod.PUT)
+    default ResponseEntity<ReviewResponse> updateReview(@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,@ApiParam(value = "",required=true) @PathVariable("review-id") String reviewId,@ApiParam(value = ""  )  @Valid @RequestBody Review review) {
+        getRequest().ifPresent(request -> {
+            for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
+                if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
+                    ApiUtil.setExampleResponse(request, "application/json", "{  \"review-id\" : \"review-id\"}");
                     break;
                 }
             }

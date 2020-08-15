@@ -15,36 +15,36 @@ import javax.validation.constraints.*;
 /**
  * Reviews
  */
-@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-05-31T10:46:01.641-04:00[America/New_York]")
+@javax.annotation.Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2020-07-25T10:41:48.141-04:00[America/New_York]")
 
 public class Reviews   {
-  @JsonProperty("avarage-like")
-  private BigDecimal avarageLike = null;
+  @JsonProperty("average-like")
+  private BigDecimal averageLike = null;
 
   @JsonProperty("reviews")
   @Valid
   private List<Review> reviews = null;
 
-  public Reviews avarageLike(BigDecimal avarageLike) {
-    this.avarageLike = avarageLike;
+  public Reviews averageLike(BigDecimal averageLike) {
+    this.averageLike = averageLike;
     return this;
   }
 
   /**
-   * Get avarageLike
-   * @return avarageLike
+   * Get averageLike
+   * @return averageLike
   **/
   @ApiModelProperty(required = true, value = "")
   @NotNull
 
   @Valid
 
-  public BigDecimal getAvarageLike() {
-    return avarageLike;
+  public BigDecimal getAverageLike() {
+    return averageLike;
   }
 
-  public void setAvarageLike(BigDecimal avarageLike) {
-    this.avarageLike = avarageLike;
+  public void setAverageLike(BigDecimal averageLike) {
+    this.averageLike = averageLike;
   }
 
   public Reviews reviews(List<Review> reviews) {
@@ -86,13 +86,13 @@ public class Reviews   {
       return false;
     }
     Reviews reviews = (Reviews) o;
-    return Objects.equals(this.avarageLike, reviews.avarageLike) &&
+    return Objects.equals(this.averageLike, reviews.averageLike) &&
         Objects.equals(this.reviews, reviews.reviews);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(avarageLike, reviews);
+    return Objects.hash(averageLike, reviews);
   }
 
   @Override
@@ -100,7 +100,7 @@ public class Reviews   {
     StringBuilder sb = new StringBuilder();
     sb.append("class Reviews {\n");
     
-    sb.append("    avarageLike: ").append(toIndentedString(avarageLike)).append("\n");
+    sb.append("    averageLike: ").append(toIndentedString(averageLike)).append("\n");
     sb.append("    reviews: ").append(toIndentedString(reviews)).append("\n");
     sb.append("}");
     return sb.toString();
