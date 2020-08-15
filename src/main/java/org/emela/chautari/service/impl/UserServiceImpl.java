@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
             userEntity =
                     userEntityRepository.findByUserId(UUID.fromString(userId)).orElseThrow(ResourceNotFoundException::new);
         } catch (Exception exception) {
-            log.error("User Entity not found for user-id {}", userId, exception);
+            log.error("User Entity not found for user-id {} ", userId, exception);
             throw new RentalServiceException("User Entity not found for user-id" + userId, exception);
         }
         return userEntity;
