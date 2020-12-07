@@ -1,21 +1,24 @@
 package org.emela.chautari.domain;
 
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Blob;
+import java.util.Date;
 import java.util.UUID;
 
 @SuppressWarnings("ALL")
 @Data
 @Entity(name = "resource")
 @ToString
-@NoArgsConstructor
-public class ResourceEntity extends BaseEntity {
+@Builder
+public class ResourceEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +29,7 @@ public class ResourceEntity extends BaseEntity {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Type(type="org.hibernate.type.UUIDCharType")
-    private UUID resourceId = UUID.randomUUID();
+    private UUID resourceId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
@@ -42,5 +44,17 @@ public class ResourceEntity extends BaseEntity {
 
     @Lob
     @NotNull
-    private byte[] resourceFile;
+    private Blob resourceFile;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdOn;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdatedOn;
+
+    private String createdUser;
+
+    private String lastUpdatedUser;
 }

@@ -6,7 +6,10 @@ import org.emela.chautari.domain.ResourceEntity;
 import org.emela.chautari.exception.RentalServiceException;
 import org.emela.chautari.exception.ResourceNotFoundException;
 import org.emela.chautari.mapper.RentalEntityMapper;
-import org.emela.chautari.model.*;
+import org.emela.chautari.model.RentalItemDetail;
+import org.emela.chautari.model.RentalItemRequest;
+import org.emela.chautari.model.RentalItemResponse;
+import org.emela.chautari.model.RentalItemSummary;
 import org.emela.chautari.repository.RentalEntityRepository;
 import org.emela.chautari.service.RentalAvailabilityService;
 import org.emela.chautari.service.RentalFeatureService;
@@ -95,7 +98,8 @@ public class RentalServiceImpl implements RentalService {
         log.info("Rental get request has received for rental-id {} ", rentalId);
         RentalItemDetail rentalItemDetail;
         try {
-            RentalEntity rentalEntity = getRentalEntity(rentalId);
+            RentalEntity rentalEntity = rentalEntityRepository.findByRentalId(UUID.fromString(rentalId))
+                    .orElseThrow(ResourceNotFoundException::new);
             rentalItemDetail = rentalEntityMapper.mapToRentalItemDetail(rentalEntity);
             rentalItemDetail.setAvailability(rentalAvailabilityService.
                     getRentalItemAvailabilityDetail(rentalEntity.getAvailabilityEntity()));
@@ -107,12 +111,6 @@ public class RentalServiceImpl implements RentalService {
             throw e;
         }
         return rentalItemDetail;
-    }
-
-    @Override
-    public RentalEntity getRentalEntity(String rentalId) {
-        return rentalEntityRepository.findByRentalId(UUID.fromString(rentalId))
-                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override

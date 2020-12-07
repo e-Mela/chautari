@@ -6,11 +6,9 @@ import org.emela.chautari.model.RentalItemDetail;
 import org.emela.chautari.model.RentalItemRequest;
 import org.emela.chautari.model.RentalItemResponse;
 import org.emela.chautari.model.RentalItemSummary;
-import org.emela.chautari.model.ResourceDetail;
 import org.emela.chautari.model.ResourceResponse;
-import org.emela.chautari.model.ResourceResponseList;
 import org.emela.chautari.service.RentalService;
-import org.emela.chautari.service.ResourceService;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,11 +26,9 @@ import java.util.List;
 public class RentsApiController implements RentsApi {
 
     private RentalService rentalService;
-    private ResourceService resourceService;
 
-    public RentsApiController(final RentalService rentalService, ResourceService resourceService) {
+    public RentsApiController(final RentalService rentalService) {
         this.rentalService = rentalService;
-        this.resourceService = resourceService;
     }
 
     @Override
@@ -59,19 +55,14 @@ public class RentsApiController implements RentsApi {
     }
 
     @Override
-    public ResponseEntity<ResourceDetail> getResource(String resourceId, String rentalId) {
-        return ResponseEntity.ok(resourceService.getResource(resourceId, rentalId));
+    public ResponseEntity<Resource> getResource(String resourceId) {
+        return null;
     }
 
     @Override
-    public ResponseEntity<ResourceResponseList> resourceUpload(String userId, String rentalId,
-                                                               List<MultipartFile> files) {
-        return ResponseEntity.ok(resourceService.uploadResources(userId, rentalId, files));
-    }
-
-    @Override
-    public ResponseEntity<ResourceResponse> deleteResource(String resourceId, String rentalId) {
-        return ResponseEntity.ok(resourceService.deleteResource(resourceId, rentalId));
+    public ResponseEntity<List<ResourceResponse>> resourceUpload(String userId, String rentalId,
+                                                                 @Valid MultipartFile file) {
+        return null;
     }
 
     @Override
