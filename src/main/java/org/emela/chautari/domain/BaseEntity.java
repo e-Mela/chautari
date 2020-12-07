@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.LastModifiedBy;
 
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
@@ -27,9 +25,7 @@ public class BaseEntity implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdatedOn;
 
-    @CreatedBy
     private String createdUser;
 
-    @LastModifiedBy
     private String lastUpdatedUser;
 }

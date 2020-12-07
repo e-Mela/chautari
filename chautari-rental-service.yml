@@ -462,7 +462,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/rents/{rental-id}/resource':
+  '/rents/resource':
     post:
       summary: "upload resources"
       description: "Provide endpoint to upload resources"
@@ -475,7 +475,7 @@ paths:
           schema:
             type: "string"
         - name: "rental-id"
-          in: "path"
+          in: "header"
           schema:
             type: "string"
       requestBody:
@@ -495,7 +495,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ResourceResponseList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/ResourceResponse'
         '400':
           description: Bad Request
           content:
@@ -538,7 +540,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
-  '/rents/{rental-id}/resource/{resource-id}':
+  '/rents/resource/{resource-id}':
     get:
       summary: "return resource"
       description: "Provide endpoint to upload resources"
@@ -551,18 +553,14 @@ paths:
           required: true
           schema:
             type: "string"
-        - name: "rental-id"
-          in: "path"
-          required: true
-          schema:
-            type: "string"
       responses:
         '200':
           description: "successful operation"
           content:
-            application/json:
+            image/*:
               schema:
-                $ref: '#/components/schemas/ResourceDetail'
+                type: string
+                format: binary
         '400':
           description: Bad Request
           content:
@@ -613,11 +611,6 @@ paths:
         - bearerAuth: []
       parameters:
         - name: "resource-id"
-          in: "path"
-          required: true
-          schema:
-            type: "string"
-        - name: "rental-id"
           in: "path"
           required: true
           schema:
@@ -904,16 +897,7 @@ components:
       properties:
         rental-id:
           type: string
-    ResourceDetail:
-      type: object
-      properties:
-        resource-id:
-          type: string
-        message:
-          type: string
-        file:
-          type: string
-          format: byte
+
     Person:
       type: object
       properties:
@@ -1096,19 +1080,6 @@ components:
           type: string
         message:
           type: string
-
-    ResourceResponseList:
-      type: object
-      properties:
-        status:
-          type: string
-        message:
-          type: string
-        resourceResponse:
-          type: array
-          items:
-            $ref: '#/components/schemas/ResourceResponse'
-
     Reviews:
       type: object
       required:

@@ -96,8 +96,8 @@ public interface RentsApi {
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/resource/{resource-id}", produces = {
             "application/json" }, method = RequestMethod.DELETE)
-    default ResponseEntity<ResourceResponse> deleteResource(@ApiParam(value = "",required=true) @PathVariable("resource-id") String resourceId,
-                                                            @ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
+    default ResponseEntity<ResourceResponse> deleteResource(
+            @ApiParam(value = "", required = true) @PathVariable("resource-id") String resourceId) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -181,7 +181,8 @@ public interface RentsApi {
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
     @RequestMapping(value = "/rents/resource/{resource-id}", produces = { "image/_*",
             "application/json" }, method = RequestMethod.GET)
-    default ResponseEntity<ResourceDetail> getResource(@ApiParam(value = "",required=true) @PathVariable("resource-id") String resourceId,@ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId) {
+    default ResponseEntity<Resource> getResource(
+            @ApiParam(value = "", required = true) @PathVariable("resource-id") String resourceId) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
@@ -197,12 +198,12 @@ public interface RentsApi {
             @ApiResponse(code = 429, message = "Too Many Requests", response = ErrorModel.class),
             @ApiResponse(code = 500, message = "Internal Server Error", response = ErrorModel.class),
             @ApiResponse(code = 200, message = "Server Errors", response = ErrorModel.class) })
-    @RequestMapping(value = "/rents/{rental-id}/resource", produces = { "application/json" }, consumes = {
+    @RequestMapping(value = "/rents/resource", produces = { "application/json" }, consumes = {
             "multipart/form-data" }, method = RequestMethod.POST)
-    default ResponseEntity<ResourceResponseList> resourceUpload(@ApiParam(value = "" , required = true) @RequestHeader(value="user-id") String userId,
-                                                                @ApiParam(value = "",required=true) @PathVariable("rental-id") String rentalId,
-                                                                @ApiParam(value = "", required = true) @RequestPart(value="files")  List<MultipartFile> files)
-    {
+    default ResponseEntity<List<ResourceResponse>> resourceUpload(
+            @ApiParam(value = "") @RequestHeader(value = "user-id", required = false) String userId,
+            @ApiParam(value = "") @RequestHeader(value = "rental-id", required = false) String rentalId,
+            @ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile file) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType : MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
